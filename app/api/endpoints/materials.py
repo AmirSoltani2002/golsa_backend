@@ -11,7 +11,7 @@ from app.api.dependencies import get_db
 
 router = APIRouter()
 
-@router.get("/material/", response_model=List[Material])
+@router.get("/materials/", response_model=List[Material])
 def read_materials(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     materials = Get_materials(db)
     if not materials:

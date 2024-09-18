@@ -5,7 +5,7 @@ from app.main import app
 client = TestClient(app)
 
 def test_get_material():
-    response = client.get("/material/")
+    response = client.get("/materials/")
     assert response.status_code == 200
     data = response.json()
     print(data)
