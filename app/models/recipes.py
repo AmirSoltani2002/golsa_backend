@@ -1,0 +1,20 @@
+from sqlalchemy import Column, Integer, String, ForeignKey, Float
+from sqlalchemy.orm import relationship
+from app.db import Base
+from app.models.operators import Operator  # Import Operator before MixEntry
+from app.models.machines import Machine
+from app.models.materials import Material
+from app.models.rawmaterials import RawMaterial
+
+
+class Recipe(Base):
+    __tablename__ = 'recipes'
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    weight = Column(Float, nullable=False)
+    material_id = Column(Integer, ForeignKey('materials.id'), nullable=False)
+    rawmaterial_id = Column(Integer, ForeignKey('rawmaterials.id'), nullable=False)  # ForeignKey reference
+
+    material = relationship("Material", backref="recipes")
+    rawmaterial = relationship("RawMaterial", backref="recipes")
+
