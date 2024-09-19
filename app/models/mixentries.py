@@ -5,6 +5,7 @@ from app.models.operators import Operator  # Import Operator before MixEntry
 from app.models.machines import Machine
 from app.models.materials import Material
 from app.models.rawmaterials import RawMaterial
+from app.models.allproducts import AllProduct 
 
 
 class MixEntry(Base):
@@ -14,16 +15,17 @@ class MixEntry(Base):
     operator_id = Column(ForeignKey('operators.id'))
     shift = Column(Integer)
     line_id = Column(ForeignKey('machines.id'))
-    product_id = Column(Integer)
+    product_id = Column(ForeignKey('allproducts.code'))
     description = Column(String)
-    recipe_code = Column(ForeignKey('recipes.id'))
+    recipe_code = Column(ForeignKey('materials.id'))
     time = Column(Time)
     date = Column(Date)
     fitting = Column(Boolean)
 
+    product = relationship("AllProduct", backref="mixentries")
     operator = relationship("Operator", backref="mixentries")
     machine = relationship("Machine", backref="mixentries")
-    recipe = relationship("Recipe", backref="mixentries")
+    # recipe = relationship("Recipe", backref="mixentries")
 
 
 

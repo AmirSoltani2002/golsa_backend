@@ -5,7 +5,10 @@ from app.models.mixentries import MixEntry as ME
 
 
 def Create_mixentry(db: Session, mix: MixEntry):
-    mix_data = mix.dict()
+    if type(mix) != dict:
+        mix_data = mix.dict()
+    else:
+        mix_data = mix
     db_mix = ME(**mix_data)
     db.add(db_mix)
     db.commit()

@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from datetime import date as dt
 from datetime import time as tm
 
-class Operator(BaseModel):
-    id: int
+class Product(BaseModel):
+    code: str
     name: str
-    fitting: bool # ForeignKey reference

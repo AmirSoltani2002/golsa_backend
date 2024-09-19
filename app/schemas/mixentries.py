@@ -6,7 +6,7 @@ class MixEntry(BaseModel):
     operator_id: int
     shift: int
     line_id: int
-    product_id: int
+    product_id: str
     description: str
     recipe_code: int
     time: tm

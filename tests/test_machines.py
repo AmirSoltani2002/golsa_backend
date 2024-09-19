@@ -4,8 +4,8 @@ from app.main import app
 
 client = TestClient(app)
 
-def test_get_machine():
-    response = client.get("/machine/")
+def test_get_machine(fitting = True):
+    response = client.get(f"/machine/{fitting}")
     assert response.status_code == 200
     data = response.json()
     return data
