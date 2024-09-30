@@ -17,8 +17,8 @@ def test_post_mixer_entry():
         '22':17.2563
     },
     'time': '11:11:11',
-    'date': '1403-10-10',
-    'fitting': True}
+    'date': '1403-10-15',
+    'fitting': False}
     response = client.post("/mixentry/", json=inp)
     assert response.status_code == 200
     data = response.json()
@@ -38,7 +38,7 @@ def test_post_mix_entry_other():
         '22':17.2563
     },
     'time': '11:11:11',
-    'date': '1403-10-10',
+    'date': '1403-10-15',
     'fitting': True}
     response = client.post("/mixentry/other/", json=inp)
     assert response.status_code == 200
