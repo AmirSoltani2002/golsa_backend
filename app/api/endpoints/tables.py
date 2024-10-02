@@ -1,15 +1,34 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-from app.services.tables_services import Get_tables, Get_table_columns
+from typing import List, Any, Union, Literal
+
+from app.services.tables_services import Get_tables, Get_table_columns, Get_rows, Delete_row, Update_row, Search_rows
 from app.api.dependencies import get_db
 
 router = APIRouter()
 
 @router.get("/tables/")
-def read_materials(db: Session = Depends(get_db)):
+def F(db: Session = Depends(get_db)):
     return Get_tables(db)
 
-@router.get("/tables/{table_name}/")
+@router.get("/table/{table_name}/")
 def read_materials(table_name: str, db: Session = Depends(get_db)):
     return Get_table_columns(table_name, db)
+
+@router.get("/values/{table_name}/{start}/{end}/{order}/{asc}/")
+def read_materials(table_name: str, start: int, end: int, order: str, asc: bool = True, db: Session = Depends(get_db)):
+    return Get_rows(table_name, db, start, end, order, asc)
+
+@router.delete("/table/{table_name}/{id}/")
+def read_materials(table_name: str,id: int, db: Session = Depends(get_db)):
+    return Delete_row(table_name, db, id)
+
+@router.put("/table/{table_name}/{id}/")
+def read_materials(data: dict, table_name: str, id: int, db: Session = Depends(get_db)):
+    return Update_row(table_name, db, id, data)
+
+@router.get("/table/{table_name}/{column}/{content}/{type}")
+def read_materials(table_name: str, column: str, content: Any, type: Literal['str', 'int',' float', 'bool']
+                   , db: Session = Depends(get_db)):
+    return Search_rows(table_name, db, column, content, type)

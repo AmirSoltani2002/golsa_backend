@@ -9,10 +9,10 @@ def test_get_material():
     assert response.status_code == 200
     data = response.json()
     print(data)
-    return data
+    assert data
 
-def test_get_material_by_id(id = 1):
-    response = client.get(f"/material/{id}")
+def test_get_material_by_id(id = 2):
+    response = client.get(f"/material/{id}/")
     assert response.status_code == 200
     data = response.json()
     print(data)
