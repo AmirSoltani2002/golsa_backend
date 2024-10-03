@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 from typing import List
 from typing import List, Any, Union, Literal
 
-from app.services.tables_services import Get_tables, Get_table_columns, Get_rows, Delete_row, Update_row, Search_rows
-from app.api.dependencies import get_db
+from app.services.tables_services import Get_tables, Get_table_columns, Get_rows, Delete_row, Update_row, Search_rows, Insert_row
+from app.api.dependencies import get_db, get_current_user
 
 router = APIRouter()
 
@@ -21,14 +21,24 @@ def read_materials(table_name: str, start: int, end: int, order: str, asc: bool 
     return Get_rows(table_name, db, start, end, order, asc)
 
 @router.delete("/table/{table_name}/{id}/")
-def read_materials(table_name: str,id: int, db: Session = Depends(get_db)):
+def read_materials(table_name: str,id: int, db: Session = Depends(get_db), user = Depends(get_current_user)):
+    if user != "admin":
+        raise HTTPException(status_code=403, detail="Not enough permission")
     return Delete_row(table_name, db, id)
 
 @router.put("/table/{table_name}/{id}/")
-def read_materials(data: dict, table_name: str, id: int, db: Session = Depends(get_db)):
+def read_materials(data: dict, table_name: str, id: int, db: Session = Depends(get_db), user = Depends(get_current_user)):
+    if user == "viewer":
+        raise HTTPException(status_code=403, detail="Not enough permission")
     return Update_row(table_name, db, id, data)
 
 @router.get("/table/{table_name}/{column}/{content}/{type}")
 def read_materials(table_name: str, column: str, content: Any, type: Literal['str', 'int',' float', 'bool']
                    , db: Session = Depends(get_db)):
     return Search_rows(table_name, db, column, content, type)
+
+@router.post("/table/{table_name}/")
+def read_materials(data: dict, table_name: str ,db: Session = Depends(get_db), user = Depends(get_current_user)):
+    if user == "viewer":
+        raise HTTPException(status_code=403, detail="Not enough permission")
+    return Insert_row(table_name, db, data)

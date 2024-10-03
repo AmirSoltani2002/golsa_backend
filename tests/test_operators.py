@@ -8,5 +8,5 @@ def test_get_material(fitting = True):
     response = client.get(f"/operator/{fitting}")
     assert response.status_code == 200
     data = response.json()
-    print(data)
-    return data
+    #print(data)
+    #return data

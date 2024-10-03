@@ -1,6 +1,6 @@
 from typing import List, Any, Union, Literal
 from sqlalchemy.orm import Session
-from sqlalchemy import text, update, delete, select, Table, MetaData
+from sqlalchemy import text, update, delete, select, insert, Table, MetaData
 from fastapi import HTTPException
 
 def Get_tables(db: Session):
@@ -72,3 +72,13 @@ def Search_rows(name: str, db:Session, column: str,  content: Any, type: Literal
         stm = select(table).where(getattr(table.c, column) == content)
     result = db.execute(stm).fetchall()
     return [dict(zip(columns, list(row))) for row in result] 
+
+def Insert_row(name: str, db: Session, data: dict):
+    metadata = MetaData()
+    table = Table(name, metadata, autoload_with=db.bind)
+    stm = insert(table).values(**data)
+    result = db.execute(stm)
+    db.commit()
+    return result.inserted_primary_key[0]
+
+

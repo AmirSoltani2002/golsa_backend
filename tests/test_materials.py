@@ -8,15 +8,15 @@ def test_get_material():
     response = client.get("/materials/")
     assert response.status_code == 200
     data = response.json()
-    print(data)
+    #print(data)
     assert data
 
 def test_get_material_by_id(id = 2):
     response = client.get(f"/material/{id}/")
     assert response.status_code == 200
     data = response.json()
-    print(data)
-    return data
+    #print(data)
+    #return data
 
 # def test_invalid_user():
 #     # Missing required 'email' field

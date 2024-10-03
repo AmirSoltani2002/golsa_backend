@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.endpoints import mixentries, materials, operators, machines, products, tables
+from app.api.endpoints import mixentries, materials, operators, machines, products, tables, login
 from app.core.config import settings
 from app.db import Base
 from app.db import engine
@@ -37,6 +37,7 @@ app.include_router(operators.router)
 app.include_router(machines.router)
 app.include_router(products.router)
 app.include_router(tables.router)
+app.include_router(login.router)
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the FastAPI app!"}

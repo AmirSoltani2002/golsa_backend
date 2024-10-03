@@ -22,8 +22,8 @@ def test_post_mixer_entry():
     response = client.post("/mixentry/", json=inp)
     assert response.status_code == 200
     data = response.json()
-    print(data)
-    return data
+    #print(data)
+    #return data
 
 def test_post_mix_entry_other():
     inp = {'operator_id': 1,
@@ -43,5 +43,5 @@ def test_post_mix_entry_other():
     response = client.post("/mixentry/other/", json=inp)
     assert response.status_code == 200
     data = response.json()
-    print(data)
-    return data
+    #print(data)
+    #return data

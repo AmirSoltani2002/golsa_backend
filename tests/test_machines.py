@@ -8,5 +8,5 @@ def test_get_machine(fitting = True):
     response = client.get(f"/machine/{fitting}")
     assert response.status_code == 200
     data = response.json()
-    return data
+    #return data
 
