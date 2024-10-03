@@ -7,7 +7,7 @@ attrs==23.1.0
 fastapi==0.112.2
 frozenlist==1.4.0
 idna==3.7
-jdatetime
+jdatetime==5.0.0
 multidict==6.0.4
 openssl==3.0.15
 pydantic==2.8.2
