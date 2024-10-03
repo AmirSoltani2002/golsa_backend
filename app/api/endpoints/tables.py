@@ -32,7 +32,7 @@ def read_materials(data: dict, table_name: str, id: int, db: Session = Depends(g
         raise HTTPException(status_code=403, detail="Not enough permission")
     return Update_row(table_name, db, id, data)
 
-@router.get("/table/{table_name}/{column}/{content}/{type}")
+@router.get("/table/{table_name}/{column}/{content}/{type}/")
 def read_materials(table_name: str, column: str, content: Any, type: Literal['str', 'int',' float', 'bool']
                    , db: Session = Depends(get_db)):
     return Search_rows(table_name, db, column, content, type)
