@@ -1,3 +1,5 @@
+import sys
+sys.path.append("/mount/src/golsa_backend")
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.endpoints import mixentries, materials, operators, machines, products, tables, login
