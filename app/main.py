@@ -2,6 +2,7 @@ import sys
 sys.path.append("/mount/src/golsa_backend")
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+#from supabase import create_client, Client
 from app.api.endpoints import mixentries, materials, operators, machines, products, tables, login
 from app.core.config import settings
 from app.db import Base
@@ -20,6 +21,10 @@ from app.models import PipeProduct, FittingProduct, Operator, Machine, Material,
 
 # Initialize the FastAPI app
 app = FastAPI(title=settings.PROJECT_NAME)
+
+# url = "https://bhieenrmgrupislmtels.supabase.co"
+# key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoaWVlbnJtZ3J1cGlzbG10ZWxzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc5NDQ2MzAsImV4cCI6MjA0MzUyMDYzMH0.gmyyxwP_GC8_khjatC_MDZhT2_E9AapMkFPX9JiWdG0"
+# supabase: Client = create_client(url, key)
 
 app.add_middleware(
     CORSMiddleware,
