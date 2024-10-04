@@ -41,4 +41,6 @@ def read_materials(table_name: str, column: str, content: Any, type: Literal['st
 def read_materials(data: dict, table_name: str ,db: Session = Depends(get_db), user = Depends(get_current_user)):
     if user == "viewer":
         raise HTTPException(status_code=403, detail="Not enough permission")
+    if table_name == "user" and user != "admin":
+        raise HTTPException(status_code=403, detail="Not enough permission")
     return Insert_row(table_name, db, data)
