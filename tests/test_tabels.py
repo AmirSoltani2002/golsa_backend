@@ -15,7 +15,7 @@ def test_get_columns(name = 'pipeproduct'):
     response = client.get(f"/table/{name}/")
     assert response.status_code == 200
     data = response.json()
-    #print(data)
+    print('ahmad', data)
     #return data
 
 def test_get_values(name = 'pipeproduct', start = 0, end = 7, column = 'code', asc = True):

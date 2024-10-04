@@ -14,7 +14,7 @@ def F(db: Session = Depends(get_db)):
 
 @router.get("/table/{table_name}/")
 def read_materials(table_name: str, db: Session = Depends(get_db)):
-    return [{column['name']: column['type']} for column in inspector.get_columns(table_name)] 
+    return [{column['name']: str(column['type'])} for column in inspector.get_columns(table_name)] 
 
 @router.get("/values/{table_name}/{start}/{end}/{order}/{asc}/")
 def read_materials(table_name: str, start: int, end: int, order: str, asc: bool = True, db: Session = Depends(get_db)):
