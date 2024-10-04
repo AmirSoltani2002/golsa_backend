@@ -32,6 +32,4 @@ def signup(data: users.User_login, db: Session = Depends(get_db), user = Depends
     if user['role'] != 'admin':
         raise HTTPException(status_code=403, detail="Not enough permission")
     data.hashed_pass = pwd_context.hash(data.hashed_pass)
-    return Create_user(data)
-    
-    
+    return Create_user(db, data)

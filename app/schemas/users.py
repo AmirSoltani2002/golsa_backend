@@ -5,7 +5,8 @@ from datetime import time as tm
 
 class User_login(BaseModel):
     username: str
-    password: str
+    hashed_pass: str
+    role: str
 
 class User_show(BaseModel):
     id: int
