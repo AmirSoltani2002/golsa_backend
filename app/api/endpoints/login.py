@@ -31,6 +31,8 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 def signup(data: dict, db: Session = Depends(get_db), user = Depends(get_current_user)):
     if user['role'] != 'admin':
         raise HTTPException(status_code=403, detail="Not enough permission")
+    if data['role'] not in ['admin', 'viewer', 'editor']:
+        raise HTTPException(status_code = 422, detail = "Bad entity")
     #return data['hashed_pass']
     data['hashed_pass'] = pwd_context.hash(data['hashed_pass'])
     Create_user(db, data)
