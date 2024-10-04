@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from app.api.dependencies import get_db, create_access_token, get_current_user
 from app.services.login_services import Get_user, Create_user
-from app.schemas import users
+from app.schemas import users as user_schemas
 
 router = APIRouter()
 
@@ -27,8 +27,8 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     access_token = create_access_token(data = {"sub": user.username, "role": user.role})
     return {"access_token": access_token, "type": "bearer", "role": user.role, "username": user.username}
 
-@router.post("/signup/", response_model=users.User_show)
-def signup(data: users.User_login, db: Session = Depends(get_db), user = Depends(get_current_user)):
+@router.post("/signup/", response_model=user_schemas.User_show)
+def signup(data: user_schemas.User_login, db: Session = Depends(get_db), user = Depends(get_current_user)):
     pass
     # if user['role'] != 'admin':
     #     raise HTTPException(status_code=403, detail="Not enough permission")
