@@ -13,7 +13,7 @@ router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def verify_password(plain_password, hashed_password):
-    return plain_password ==  hashed_password
+    return pwd_context.verify(plain_password,  hashed_password)
 
 @router.post('/token')
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
