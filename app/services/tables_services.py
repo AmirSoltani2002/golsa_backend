@@ -22,7 +22,7 @@ def Get_table_columns_types(name:str, db: Session):
     query = text(f"""
         SELECT column_name, data_type
         FROM information_schema.columns
-        WHERE table_name = :table_name
+        WHERE table_name = :table_name AND table_schema = 'public';
     """)
 
     # Execute the query and fetch results

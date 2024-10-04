@@ -11,7 +11,7 @@ def test_get_tabels():
     #print(data)
     #return data
 
-def test_get_columns(name = 'pipeproduct'):
+def test_get_columns(name = 'users'):
     response = client.get(f"/table/{name}/")
     assert response.status_code == 200
     data = response.json()
