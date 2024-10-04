@@ -18,14 +18,15 @@ def verify_password(plain_password, hashed_password):
 @router.post('/token')
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = Get_user(db, form_data.username)
-    if not user or not verify_password(form_data.password, user.hashed_pass):
-        raise HTTPException(
-            status_code=401,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    access_token = create_access_token(data = {"sub": user["username"], "role": user["role"]})
-    return {"access_token": access_token, "type": "bearer", "role": user["role"], "username": user["username"]}
+    return user.username
+    # if not user or not verify_password(form_data.password, user.hashed_pass):
+    #     raise HTTPException(
+    #         status_code=401,
+    #         detail="Incorrect username or password",
+    #         headers={"WWW-Authenticate": "Bearer"},
+    #     )
+    # access_token = create_access_token(data = {"sub": user.username, "role": user.role})
+    # return {"access_token": access_token, "type": "bearer", "role": user.role, "username": user.username}
 
 @router.post("/signup/", response_model=users.User_show)
 def signup(data: users.User_login, db: Session = Depends(get_db), user = Depends(get_current_user)):
