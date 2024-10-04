@@ -18,7 +18,7 @@ def verify_password(plain_password, hashed_password):
 @router.post('/token')
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = Get_user(db, form_data.username)
-    if not user or not verify_password(form_data.password, user['hashed_pass']):
+    if not user or not verify_password(form_data.password, user.hashed_pass):
         raise HTTPException(
             status_code=401,
             detail="Incorrect username or password",
