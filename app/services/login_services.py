@@ -1,7 +1,6 @@
 from app.models.users import User
 from sqlalchemy.orm import Session
 from app.schemas.users import User_login
-from app.models.users import User
 
 
 def Get_user(db: Session, username: str):
