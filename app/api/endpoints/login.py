@@ -33,4 +33,4 @@ def signup(data: dict, db: Session = Depends(get_db), user = Depends(get_current
         raise HTTPException(status_code=403, detail="Not enough permission")
     #return data['hashed_pass']
     data['hashed_pass'] = pwd_context.hash(data['hashed_pass'])
-    return Create_user(db, data)
+    Create_user(db, data)
