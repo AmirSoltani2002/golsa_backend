@@ -27,11 +27,14 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     access_token = create_access_token(data = {"sub": user.username, "role": user.role})
     return {"access_token": access_token, "type": "bearer", "role": user.role, "username": user.username}
 
-@router.post("/signup/", response_model=user_schemas.User_show)
-def signup(data: user_schemas.User_login, db: Session = Depends(get_db), user = Depends(get_current_user)):
-    pass
-    # if user['role'] != 'admin':
-    #     raise HTTPException(status_code=403, detail="Not enough permission")
-    # return data['hashed_pass']
-    # data.hashed_pass = pwd_context.hash(data.hashed_pass)
-    # return Create_user(db, data)
+# @router.post("/signup/", response_model=user_schemas.User_show)
+# def signup(data: user_schemas.User_login, db: Session = Depends(get_db), user = Depends(get_current_user)):
+#     if user['role'] != 'admin':
+#         raise HTTPException(status_code=403, detail="Not enough permission")
+#     #return data['hashed_pass']
+#     data.hashed_pass = pwd_context.hash(data.hashed_pass)
+#     return Create_user(db, data)
+
+@router.get("/signup/")
+def signup(user = Depends(get_current_user)):
+    return user['role']
