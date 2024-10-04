@@ -7,7 +7,7 @@ def Get_tables(db: Session):
     table_names = db.execute(
             text("SELECT table_name FROM information_schema.tables WHERE table_schema='public'")
             ).fetchall()
-    return [name[0] for name in table_names]
+    return [name[0] for name in table_names if name[0] != 'users']
 
 def Get_table_columns(name:str, db: Session):
     result = db.execute(
