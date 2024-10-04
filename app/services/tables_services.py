@@ -18,6 +18,24 @@ def Get_table_columns(name:str, db: Session):
             ).fetchall()
     return [row[0] for row in result]
 
+def Get_table_columns_types(name:str, db: Session):
+    query = text(f"""
+        SELECT column_name, data_type
+        FROM information_schema.columns
+        WHERE table_name = :table_name
+    """)
+
+    # Execute the query and fetch results
+    result = db.execute(query, {"table_name": name}).fetchall()
+
+    # Raise an error if the table is not found or has no columns
+    if not result:
+        raise HTTPException(status_code=404, detail=f"Table '{name}' not found or has no columns.")
+
+    # Construct the desired return structure
+    columns_info = [{row[0]: {"type": row[1]}} for row in result]
+
+    return columns_info
 
 def Get_rows(name:str, db: Session, start: int, end: int, order: str, asc: bool):
     DESC = 'DESC' if not asc else 'ASC'

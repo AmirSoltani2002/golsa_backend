@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 from typing import List, Any, Union, Literal
 from app.db import inspector
-from app.services.tables_services import Get_tables, Get_table_columns, Get_rows, Delete_row, Update_row, Search_rows, Insert_row
+from app.services.tables_services import Get_tables, Get_table_columns_types, Get_rows, Delete_row, Update_row, Search_rows, Insert_row
 from app.api.dependencies import get_db, get_current_user
 
 router = APIRouter()
@@ -14,7 +14,7 @@ def F(db: Session = Depends(get_db)):
 
 @router.get("/table/{table_name}/")
 def read_materials(table_name: str, db: Session = Depends(get_db)):
-    return [{column['name']: str(column['type'])} for column in inspector.get_columns(table_name)] 
+    return Get_table_columns_types(table_name, db) 
 
 @router.get("/values/{table_name}/{start}/{end}/{order}/{asc}/")
 def read_materials(table_name: str, start: int, end: int, order: str, asc: bool = True, db: Session = Depends(get_db)):
