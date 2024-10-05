@@ -9,15 +9,15 @@ from app.api.dependencies import get_db, get_current_user
 router = APIRouter()
 
 @router.post("/mixentry/", response_model=mixer_schemas.MixEntryResponse)
-def create_mixer_endpoint(mix: mixer_schemas.MixEntry, db: Session = Depends(get_db), user = Depends(get_current_user)):
-    if user['role'] == 'viewer':
-        raise HTTPException(status_code=403, detail="Not enough permission")
+def create_mixer_endpoint(mix: mixer_schemas.MixEntry, db: Session = Depends(get_db)):
+    # if user['role'] == 'viewer':
+    #     raise HTTPException(status_code=403, detail="Not enough permission")
     return Create_mixentry(db=db, mix=mix)
 
 @router.post("/mixentry/other/", response_model=mixer_schemas.MixEntryResponse)
-def create_mixer_endpoint(mix: dict, db: Session = Depends(get_db), user = Depends(get_current_user)):
-    if user['role'] == 'viewer':
-        raise HTTPException(status_code=403, detail="Not enough permission")
+def create_mixer_endpoint(mix: dict, db: Session = Depends(get_db)):
+    # if user['role'] == 'viewer':
+    #     raise HTTPException(status_code=403, detail="Not enough permission")
     material = Post_material(db)
     rawmaterials = mix['recipe']
     recipes_list = []

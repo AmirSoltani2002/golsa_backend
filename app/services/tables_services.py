@@ -2,7 +2,6 @@ from typing import List, Any, Union, Literal
 from sqlalchemy.orm import Session
 from sqlalchemy import text, update, delete, select, insert, Table, MetaData
 from fastapi import HTTPException
-from app.db import inspector
 
 def Get_tables(db: Session):
     table_names = db.execute(
@@ -53,15 +52,6 @@ def Get_rows(name:str, db: Session, start: int, end: int, order: str, asc: bool)
 def Delete_row(name: str, db:Session, id: int):
     metadata = MetaData()
     table = Table(name, metadata, autoload_with=db.bind)
-    foreign_keys = inspector.get_foreign_keys(name)
-    for fk in foreign_keys:
-        dependent_table_name = fk['referred_table']
-        dependent_table = Table(dependent_table_name, metadata, autoload_with=db.bind)
-        
-        # Delete rows in the dependent table where the foreign key matches the id
-        db.execute(
-            delete(dependent_table).where(dependent_table.c[fk['referred_columns'][0]] == id)
-        )
     stm = delete(table).where(table.c.id == id)
     result = db.execute(stm)
     db.commit()

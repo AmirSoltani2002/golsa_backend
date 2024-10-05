@@ -12,12 +12,12 @@ class MixEntry(Base):
     __tablename__ = 'mixentries'
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    operator_id = Column(ForeignKey('operators.id'))
+    operator_id = Column(ForeignKey('operators.id', ondelete='SET NULL'))
     shift = Column(Integer)
-    line_id = Column(ForeignKey('machines.id'))
-    product_id = Column(ForeignKey('allproducts.code'))
+    line_id = Column(ForeignKey('machines.id', ondelete='SET NULL'))
+    product_id = Column(ForeignKey('allproducts.code' , ondelete='SET NULL'))
     description = Column(String)
-    recipe_code = Column(ForeignKey('materials.id'))
+    recipe_code = Column(ForeignKey('materials.id', ondelete='SET NULL'))
     time = Column(Time)
     date = Column(Date)
     fitting = Column(Boolean)

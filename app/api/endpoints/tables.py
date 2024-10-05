@@ -28,8 +28,8 @@ def read_materials(table_name: str,id: int, db: Session = Depends(get_db)):
 
 @router.put("/table/{table_name}/{id}/")
 def read_materials(data: dict, table_name: str, id: int, db: Session = Depends(get_db), user = Depends(get_current_user)):
-    if user['role'] == "viewer":
-        raise HTTPException(status_code=403, detail="Not enough permission")
+    # if user['role'] == "viewer":
+    #     raise HTTPException(status_code=403, detail="Not enough permission")
     return Update_row(table_name, db, id, data)
 
 @router.get("/table/{table_name}/{column}/{content}/{type}/")
@@ -39,8 +39,8 @@ def read_materials(table_name: str, column: str, content: Any, type: Literal['st
 
 @router.post("/table/{table_name}/")
 def read_materials(data: dict, table_name: str ,db: Session = Depends(get_db), user = Depends(get_current_user)):
-    if table_name == "user":
-        raise HTTPException(status_code=404, detail="Not found")
-    if user['role'] == "viewer":
-        raise HTTPException(status_code=403, detail="Not enough permission")
+    # if table_name == "user":
+    #     raise HTTPException(status_code=404, detail="Not found")
+    # if user['role'] == "viewer":
+    #     raise HTTPException(status_code=403, detail="Not enough permission")
     return Insert_row(table_name, db, data)

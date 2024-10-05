@@ -11,9 +11,9 @@ class Recipe(Base):
     __tablename__ = 'recipes'
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    weight = Column(Float, nullable=False)
-    material_id = Column(Integer, ForeignKey('materials.id'), nullable=False)
-    rawmaterial_id = Column(Integer, ForeignKey('rawmaterials.id'), nullable=False)  # ForeignKey reference
+    weight = Column(Float)
+    material_id = Column(Integer, ForeignKey('materials.id', ondelete='SET NULL'))
+    rawmaterial_id = Column(Integer, ForeignKey('rawmaterials.id', ondelete='SET NULL'))  # ForeignKey reference
 
     material = relationship("Material", backref="recipes")
     rawmaterial = relationship("RawMaterial", backref="recipes")
