@@ -39,8 +39,8 @@ def Get_table_columns_types(name:str, db: Session):
 
 def Get_rows(name:str, db: Session, start: int, end: int, order: str, asc: bool):
     DESC = 'DESC' if not asc else 'ASC'
-    columns = Get_table_columns(name, db)
-    idx = columns.find('material')
+    columns: list = Get_table_columns(name, db)
+    idx = columns.index('material')
     result = db.execute(
             text(f"""SELECT *
                 FROM {name}
