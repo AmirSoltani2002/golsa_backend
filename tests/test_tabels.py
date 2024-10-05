@@ -33,7 +33,7 @@ def test_search_values(name = 'pipeproduct', column = 'id', content = "7", type 
     #print('ahmadAgha', data)
     #return data
 
-def test_delete_values(name = 'mixentries', id = 12):
+def test_delete_values(name = 'materials', id = 16):
     response = client.delete(f"/table/{name}/{id}/")
     assert response.status_code == 200
     data = response.json()

@@ -21,9 +21,9 @@ def read_materials(table_name: str, start: int, end: int, order: str, asc: bool 
     return Get_rows(table_name, db, start, end, order, asc)
 
 @router.delete("/table/{table_name}/{id}/")
-def read_materials(table_name: str,id: int, db: Session = Depends(get_db), user = Depends(get_current_user)):
-    if user['role'] != "admin":
-        raise HTTPException(status_code=403, detail="Not enough permission")
+def read_materials(table_name: str,id: int, db: Session = Depends(get_db)):
+    # if user['role'] != "admin":
+    #     raise HTTPException(status_code=403, detail="Not enough permission")
     return Delete_row(table_name, db, id)
 
 @router.put("/table/{table_name}/{id}/")
