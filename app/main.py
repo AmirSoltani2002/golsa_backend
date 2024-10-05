@@ -45,6 +45,6 @@ app.include_router(machines.router)
 app.include_router(products.router)
 app.include_router(tables.router)
 app.include_router(login.router)
-@app.get("/")
+@app.get("/api/")
 def read_root():
     return {"message": "Welcome to the FastAPI app!"}
