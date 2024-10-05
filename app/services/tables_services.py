@@ -40,7 +40,6 @@ def Get_table_columns_types(name:str, db: Session):
 def Get_rows(name:str, db: Session, start: int, end: int, order: str, asc: bool):
     DESC = 'DESC' if not asc else 'ASC'
     columns: list = Get_table_columns(name, db)
-    idx = columns.index('material')
     result = db.execute(
             text(f"""SELECT *
                 FROM {name}
@@ -51,6 +50,7 @@ def Get_rows(name:str, db: Session, start: int, end: int, order: str, asc: bool)
     if name != 'materials':
         return [dict(zip(columns, list(row))) for row in result] 
     else:
+        idx = columns.index('material')
         return [dict(zip(columns, list(row))) for row in result if row[idx]]
 
 def Delete_row(name: str, db:Session, id: int):
