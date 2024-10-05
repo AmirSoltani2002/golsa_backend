@@ -8,7 +8,7 @@ class Operator(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String)
     father = Column(String)
-    sex = Column(Boolean)  # ForeignKey reference
+    sex = Column(String)  # ForeignKey reference
     personal_id = Column(String)  # ForeignKey reference
     marriage = Column(Boolean)  # ForeignKey reference
     education = Column(String)  # ForeignKey reference
