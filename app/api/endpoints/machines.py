@@ -11,7 +11,7 @@ from app.api.dependencies import get_db
 
 router = APIRouter()
 
-@router.get("/machine/{fitting}", response_model=List[Machine])
+@router.get("/api/machine/{fitting}", response_model=List[Machine])
 def read_materials(fitting: bool, db: Session = Depends(get_db)):
     machines = Get_machines(db, fitting)
     if not machines:

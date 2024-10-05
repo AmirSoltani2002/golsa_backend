@@ -8,7 +8,7 @@ from app.api.dependencies import get_db
 
 router = APIRouter()
 
-@router.get("/product/{fitting}", response_model=List[Product])
+@router.get("/api/product/{fitting}", response_model=List[Product])
 def read_materials(fitting: bool, db: Session = Depends(get_db)):
     products = Get_fittings(db) if fitting else Get_pipes(db)
     if not products:

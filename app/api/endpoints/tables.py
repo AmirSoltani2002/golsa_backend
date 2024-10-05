@@ -8,36 +8,36 @@ from app.api.dependencies import get_db, get_current_user
 
 router = APIRouter()
 
-@router.get("/tables/")
+@router.get("/api/tables/")
 def F(db: Session = Depends(get_db)):
     return Get_tables(db)
 
-@router.get("/table/{table_name}/")
+@router.get("/api/table/{table_name}/")
 def read_materials(table_name: str, db: Session = Depends(get_db)):
     return Get_table_columns_types(table_name, db) 
 
-@router.get("/values/{table_name}/{start}/{end}/{order}/{asc}/")
+@router.get("/api/values/{table_name}/{start}/{end}/{order}/{asc}/")
 def read_materials(table_name: str, start: int, end: int, order: str, asc: bool = True, db: Session = Depends(get_db)):
     return Get_rows(table_name, db, start, end, order, asc)
 
-@router.delete("/table/{table_name}/{id}/")
+@router.delete("/api/table/{table_name}/{id}/")
 def read_materials(table_name: str,id: int, db: Session = Depends(get_db)):
     # if user['role'] != "admin":
     #     raise HTTPException(status_code=403, detail="Not enough permission")
     return Delete_row(table_name, db, id)
 
-@router.put("/table/{table_name}/{id}/")
+@router.put("/api/table/{table_name}/{id}/")
 def read_materials(data: dict, table_name: str, id: int, db: Session = Depends(get_db), user = Depends(get_current_user)):
     # if user['role'] == "viewer":
     #     raise HTTPException(status_code=403, detail="Not enough permission")
     return Update_row(table_name, db, id, data)
 
-@router.get("/table/{table_name}/{column}/{content}/{type}/")
+@router.get("/api/table/{table_name}/{column}/{content}/{type}/")
 def read_materials(table_name: str, column: str, content: Any, type: Literal['str', 'int',' float', 'bool']
                    , db: Session = Depends(get_db)):
     return Search_rows(table_name, db, column, content, type)
 
-@router.post("/table/{table_name}/")
+@router.post("/api/table/{table_name}/")
 def read_materials(data: dict, table_name: str ,db: Session = Depends(get_db), user = Depends(get_current_user)):
     # if table_name == "user":
     #     raise HTTPException(status_code=404, detail="Not found")

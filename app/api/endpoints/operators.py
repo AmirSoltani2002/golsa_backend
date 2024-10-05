@@ -7,7 +7,7 @@ from app.api.dependencies import get_db
 
 router = APIRouter()
 
-@router.get("/operator/{fitting}", response_model=List[Operator])
+@router.get("/api/operator/{fitting}", response_model=List[Operator])
 def read_materials(fitting: bool, db: Session = Depends(get_db)):
     operators = Get_operators(db, fitting)
     if not operators:
