@@ -11,22 +11,22 @@ class MixEntry(BaseModel):
     description: str
     recipe_code: int
     time: tm
-    date: dt
+    date: str
     fitting: bool
-
-    @validator('date', pre=True)
-    def parse_persian_date(cls, value):
-        try:
-            # Ensure the input value is a string
-            if not isinstance(value, str):
-                value = str(value)
-            # Assume value is in the format 'YYYY-MM-DD' in Persian calendar
-            persian_date = jdatetime.date.fromisoformat(value)
-            # Convert to Gregorian date
-            gregorian_date = persian_date.togregorian()
-            return gregorian_date
-        except Exception as e:
-            raise e
+    
+    # @validator('date', pre=True)
+    # def parse_persian_date(cls, value):
+    #     try:
+    #         # Ensure the input value is a string
+    #         if not isinstance(value, str):
+    #             value = str(value)
+    #         # Assume value is in the format 'YYYY-MM-DD' in Persian calendar
+    #         persian_date = jdatetime.date.fromisoformat(value)
+    #         # Convert to Gregorian date
+    #         gregorian_date = persian_date.togregorian()
+    #         return gregorian_date
+    #     except Exception as e:
+    #         raise e
 
 class MixEntryResponse(MixEntry):
     id: int
