@@ -11,7 +11,7 @@ import shutil
 router = APIRouter()
 
 @router.get("/api/tables/")
-def F(db: Session = Depends(get_db), user = Depends(get_current_user)):
+def F(db: Session = Depends(get_db)):
     ret = Get_tables(db)
     # if user['role'] != 'admin':
     #     ret.remove('recipes')
