@@ -40,13 +40,24 @@ def Get_table_columns_types(name:str, db: Session):
 def Get_rows(name:str, db: Session, start: int, end: int, order: str, asc: bool):
     DESC = 'DESC' if not asc else 'ASC'
     columns: list = Get_table_columns(name, db)
-    result = db.execute(
-            text(f"""SELECT *
-                FROM {name}
-                ORDER BY {order} {DESC}
-                LIMIT ({end} - {start} + 1) OFFSET {start};
-                """)
-            ).fetchall()
+    if name != "recipes":
+        result = db.execute(
+                text(f"""SELECT *
+                    FROM {name}
+                    ORDER BY {order} {DESC}
+                    LIMIT ({end} - {start} + 1) OFFSET {start};
+                    """)
+                ).fetchall()
+    else:
+        result = db.execute(
+                text(f"""SELECT recipes.material_id, rawmaterials.rawmaterial, rawmaterials.company AS rawmaterial_company, recipes.weight
+                    FROM {name}
+                    LEFT JOIN rawmaterials ON recipes.rawmaterial_id = rawmaterials.id
+                    ORDER BY {order} {DESC}
+                    LIMIT ({end} - {start} + 1) OFFSET {start};
+                    """)
+                )
+        return result.mappings().all()
     if name != 'materials':
         return [dict(zip(columns, list(row))) for row in result] 
     else:

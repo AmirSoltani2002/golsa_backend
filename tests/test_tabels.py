@@ -18,10 +18,11 @@ def test_get_columns(name = 'users'):
     print('ahmad', data)
     #return data
 
-def test_get_values(name = 'pipeproduct', start = 0, end = 7, column = 'code', asc = True):
+def test_get_values(name = 'recipes', start = 0, end = 100, column = 'weight', asc = True):
     response = client.get(f"/api/values/{name}/{start}/{end}/{column}/{asc}/")
     assert response.status_code == 200
     data = response.json()
+    print(data)
     #print(data)
     #return data
 

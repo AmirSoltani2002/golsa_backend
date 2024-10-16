@@ -2,10 +2,10 @@ from pydantic import BaseModel
 from datetime import date as dt
 from datetime import time as tm
 from app.schemas.materials import Material
-from app.schemas.rowmaterials import RowMaterial
+from app.schemas.rawmaterials import RawMaterial
 
 
 class Recipe(BaseModel):
     weight: float
-    material: Material
-    rawmaterial: RowMaterial
+    material: int
+    rawmaterial: int
