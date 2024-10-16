@@ -13,8 +13,8 @@ router = APIRouter()
 @router.get("/api/tables/")
 def F(db: Session = Depends(get_db), user = Depends(get_current_user)):
     ret = Get_tables(db)
-    if user['role'] != 'admin':
-        ret.remove('recipes')
+    # if user['role'] != 'admin':
+    #     ret.remove('recipes')
     return ret
 
 

@@ -7,9 +7,9 @@ from app.api.dependencies import get_db
 
 router = APIRouter()
 
-@router.get("/api/operator/{fitting}", response_model=List[Operator])
-def read_materials(fitting: bool, db: Session = Depends(get_db)):
-    operators = Get_operators(db, fitting)
+@router.get("/api/operator/{type}", response_model=List[Operator])
+def read_materials(type: str, db: Session = Depends(get_db)):
+    operators = Get_operators(db, type)
     if not operators:
         raise HTTPException(status_code=404, detail="Operator not found")
     return operators
