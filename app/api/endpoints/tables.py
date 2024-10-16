@@ -62,7 +62,7 @@ def read_materials(table_name: str, column: str, content: Any, type: Literal['st
     return Search_rows(table_name, db, column, content, type)
 
 @router.post("/api/table/{table_name}/")
-def read_materials(data: dict, table_name: str ,db: Session = Depends(get_db), user = Depends(get_current_user)):
+def read_materials(data: dict, table_name: str ,db: Session = Depends(get_db), user = Depends(get_current_user), image: Optional[UploadFile]  = File(None)):
     if user['role'] == "viewer":
         raise HTTPException(status_code=403, detail="Not enough permission")
     if table_name =='rawmaterials' and user['role'] != 'admin':
@@ -77,4 +77,6 @@ def read_materials(data: dict, table_name: str ,db: Session = Depends(get_db), u
             data['image'] = data['name'] + file_extension
             with open(file_path, "wb") as buffer:
                 shutil.copyfileobj(image.file, buffer)
+    else:
+        del data['image']
     return Insert_row(table_name, db, data)
