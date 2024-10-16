@@ -8,6 +8,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 SECRET_KEY = "golsa_polymer"  # Change this to a strong secret key
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 480
+IMG_PTH = '../../../images'
 
 def get_db():
     db = SessionLocal()

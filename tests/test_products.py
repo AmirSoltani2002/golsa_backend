@@ -5,7 +5,7 @@ from app.main import app
 client = TestClient(app)
 
 def test_get_products():
-    response = client.get("/product/False")
+    response = client.get("/api/product/False")
     assert response.status_code == 200
     data = response.json()
     #print(data)

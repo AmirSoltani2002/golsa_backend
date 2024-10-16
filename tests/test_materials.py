@@ -5,14 +5,14 @@ from app.main import app
 client = TestClient(app)
 
 def test_get_material():
-    response = client.get("/materials/")
+    response = client.get("/api/materials/")
     assert response.status_code == 200
     data = response.json()
     #print(data)
     assert data
 
 def test_get_material_by_id(id = 2):
-    response = client.get(f"/material/{id}/")
+    response = client.get(f"/api/material/{id}/")
     assert response.status_code == 200
     data = response.json()
     #print(data)

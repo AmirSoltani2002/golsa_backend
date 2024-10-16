@@ -14,5 +14,5 @@ class Operator(Base):
     education = Column(String)  # ForeignKey reference
     major = Column(String)  # ForeignKey reference
     part = Column(String)  # ForeignKey reference
-    fitting = Column(Boolean)  # ForeignKey reference
+    type = Column(String)  # ForeignKey reference
 

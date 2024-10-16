@@ -5,4 +5,4 @@ from datetime import time as tm
 class Operator(BaseModel):
     id: int
     name: str
-    fitting: bool # ForeignKey reference
+    type: str # ForeignKey reference

@@ -7,7 +7,7 @@ def Get_tables(db: Session):
     table_names = db.execute(
             text("SELECT table_name FROM information_schema.tables WHERE table_schema='public'")
             ).fetchall()
-    return [name[0] for name in table_names if name[0] not in ['users', 'allproducts']]
+    return [name[0] for name in table_names if name[0] != 'users']
 
 def Get_table_columns(name:str, db: Session):
     result = db.execute(
@@ -97,6 +97,11 @@ def Search_rows(name: str, db:Session, column: str,  content: Any, type: Literal
 
 def Insert_row(name: str, db: Session, data: dict):
     metadata = MetaData()
+    if name in ['pipeproduct', 'fittingproduct']:
+        table = Table('allproduct', metadata, autoload_with=db.bind)
+        tmp_data = {'name': data['name'], 'code': data['code']}
+        stm = insert(table).values(**tmp_data)
+        result = db.execute(stm)
     table = Table(name, metadata, autoload_with=db.bind)
     stm = insert(table).values(**data)
     result = db.execute(stm)
