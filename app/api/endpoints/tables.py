@@ -23,7 +23,7 @@ def read_materials(table_name: str, db: Session = Depends(get_db)):
     return Get_table_columns_types(table_name, db) 
 
 @router.get("/api/values/{table_name}/{start}/{end}/{order}/{asc}/")
-def read_materials(table_name: str, start: int, end: int, order: str, asc: bool = True, db: Session = Depends(get_db), user = Depends(get_current_user)):
+def read_materials(table_name: str, start: int, end: int, order: str, asc: bool = True, db: Session = Depends(get_db)):
     ret = Get_rows(table_name, db, start, end, order, asc)
     # if user['role'] != 'admin' and table_name == 'rawmaterials':
     #         for i in range(len(ret)):
