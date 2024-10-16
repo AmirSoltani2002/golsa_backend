@@ -19,8 +19,14 @@ def F(db: Session = Depends(get_db), user = Depends(get_current_user)):
 
 
 @router.get("/api/table/{table_name}/")
-def read_materials(table_name: str, db: Session = Depends(get_db)):
-    return Get_table_columns_types(table_name, db) 
+def read_materials(table_name: str, db: Session = Depends(get_db), user = Depends(get_current_user)):
+    ret = Get_table_columns_types(table_name, db) 
+    if user['role'] != 'admin' and table_name == 'rawmaterials':
+            for i in range(len(ret)):
+                if list(ret[i].keys()) == ['price']:
+                    del ret[i]
+                    break
+    return ret
 
 @router.get("/api/values/{table_name}/{start}/{end}/{order}/{asc}/")
 def read_materials(table_name: str, start: int, end: int, order: str, asc: bool = True, db: Session = Depends(get_db), user = Depends(get_current_user)):
