@@ -42,17 +42,28 @@ def read_materials(table_name: str,id: int, db: Session = Depends(get_db), user 
     return Delete_row(table_name, db, id)
 
 @router.put("/api/table/{table_name}/{id}/")
-def read_materials(data: dict, table_name: str, id: int, db: Session = Depends(get_db), user = Depends(get_current_user), image: Optional[UploadFile] = File(None)):
+def read_materials(data: dict, table_name: str, id: int, db: Session = Depends(get_db), user = Depends(get_current_user), image = None):
     if user['role'] == "viewer":
         raise HTTPException(status_code=403, detail="Not enough permission")
-    if table_name in ['pipeproduct', 'fittingproduct']:
-        os.makedirs(IMG_PTH, exist_ok=True)
-        if image != None:
+    # Handle image upload for specific tables
+    if table_name in ['pipeproduct', 'fittingproduct']:        
+        # If an image is uploaded, save it and add the file path to `data`
+        if image is not None:
+            os.makedirs(IMG_PTH, exist_ok=True)
             file_extension = os.path.splitext(image.filename)[1]
             file_path = os.path.join(IMG_PTH, data['name'] + file_extension)
             data['image'] = data['name'] + file_extension
+            
+            # Save the image to the server
             with open(file_path, "wb") as buffer:
                 shutil.copyfileobj(image.file, buffer)
+        else:
+            # If no image is provided, you can either:
+            # (a) Ensure that the image field is removed from `data`
+            data.pop('image', None)
+    else:
+        # If the table doesn't require an image, ensure the `image` field is removed if present
+        data.pop('image', None)
     return Update_row(table_name, db, id, data)
 
 @router.get("/api/table/{table_name}/{column}/{content}/{type}/")
