@@ -23,7 +23,7 @@ from app.models import PipeProduct, FittingProduct, Operator, Machine, Material,
 # Initialize the FastAPI app
 app = FastAPI(title=settings.PROJECT_NAME)
 
-app.mount("/static", StaticFiles(directory="images"), name="static")
+app.mount("/api/static", StaticFiles(directory="images"), name="static")
 # url = "https://bhieenrmgrupislmtels.supabase.co"
 # key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoaWVlbnJtZ3J1cGlzbG10ZWxzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc5NDQ2MzAsImV4cCI6MjA0MzUyMDYzMH0.gmyyxwP_GC8_khjatC_MDZhT2_E9AapMkFPX9JiWdG0"
 # supabase: Client = create_client(url, key)
