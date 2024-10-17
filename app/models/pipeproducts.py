@@ -6,9 +6,9 @@ from app.db import Base
 class PipeProduct(Base):
     __tablename__ = 'pipeproduct'
 
-    id = Column(Integer, index=True, autoincrement=True)
+    id = Column(Integer, index=True, autoincrement=True, primary_key = True)
     name = Column(String)
-    code = Column(String, primary_key=True, index=True)
+    code = Column(String, unique=True, index=True)
     currency = Column(String)
     usage = Column(String)
     export = Column(Boolean)
