@@ -13,3 +13,8 @@ def Create_recipes(db: Session, recipes: [dict]):
         result.append(recipe)
     return result
 
+
+def Get_recipes(db: Session):
+    recipes = db.query(Recipe).join(Recipe.rawmaterial).join(Recipe.material).all()
+    return recipes
+
