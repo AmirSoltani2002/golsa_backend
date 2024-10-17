@@ -42,25 +42,26 @@ def read_materials(table_name: str,id: int, db: Session = Depends(get_db), user 
     return Delete_row(table_name, db, id)
 
 @router.put("/api/table/{table_name}/{id}/")
-def read_materials(data: dict, table_name: str, id: int, db: Session = Depends(get_db), user = Depends(get_current_user), image = None):
+def read_materials(
+    data: dict, 
+    table_name: str, 
+    id: int, 
+    db: Session = Depends(get_db), 
+    user = Depends(get_current_user)
+):
     if user['role'] == "viewer":
         raise HTTPException(status_code=403, detail="Not enough permission")
     # Handle image upload for specific tables
-    if table_name in ['pipeproduct', 'fittingproduct']:        
+    if table_name in ['pipeproduct', 'fittingproduct'] and data['image'] != None:        
         # If an image is uploaded, save it and add the file path to `data`
-        if image is not None:
-            os.makedirs(IMG_PTH, exist_ok=True)
-            file_extension = os.path.splitext(image.filename)[1]
-            file_path = os.path.join(IMG_PTH, data['name'] + file_extension)
-            data['image'] = data['name'] + file_extension
-            
-            # Save the image to the server
-            with open(file_path, "wb") as buffer:
-                shutil.copyfileobj(image.file, buffer)
-        else:
-            # If no image is provided, you can either:
-            # (a) Ensure that the image field is removed from `data`
-            data.pop('image', None)
+        os.makedirs(IMG_PTH, exist_ok=True)
+        image = data['image']
+        file_extension = os.path.splitext(image['name'])[1]
+        file_path = os.path.join(IMG_PTH, data['code'] + file_extension)       
+        # Save the image to the server
+        with open(file_path, "wb") as buffer:
+            buffer.write(image['byte'])
+        data['image'] = data['code'] + file_extension
     else:
         # If the table doesn't require an image, ensure the `image` field is removed if present
         data.pop('image', None)
@@ -76,8 +77,7 @@ def read_materials(
     data: dict, 
     table_name: str, 
     db: Session = Depends(get_db), 
-    user = Depends(get_current_user), 
-    image = None
+    user = Depends(get_current_user)
 ):
     # Check user permissions
     if user['role'] == "viewer":
@@ -90,24 +90,15 @@ def read_materials(
         raise HTTPException(status_code=404, detail="Not found")
 
     # Handle image upload for specific tables
-    if table_name in ['pipeproduct', 'fittingproduct']:        
+    if table_name in ['pipeproduct', 'fittingproduct'] and data['image'] != None:        
         # If an image is uploaded, save it and add the file path to `data`
-        if image is not None:
-            os.makedirs(IMG_PTH, exist_ok=True)
-            file_extension = os.path.splitext(image.filename)[1]
-            file_path = os.path.join(IMG_PTH, data['name'] + file_extension)
-            data['image'] = data['name'] + file_extension
-            
-            # Save the image to the server
-            with open(file_path, "wb") as buffer:
-                shutil.copyfileobj(image.file, buffer)
-        else:
-            # If no image is provided, you can either:
-            # (a) Ensure that the image field is removed from `data`
-            data.pop('image', None)
-    else:
-        # If the table doesn't require an image, ensure the `image` field is removed if present
-        data.pop('image', None)
-
+        os.makedirs(IMG_PTH, exist_ok=True)
+        image = data['image']
+        file_extension = os.path.splitext(image['name'])[1]
+        file_path = os.path.join(IMG_PTH, data['code'] + file_extension)       
+        # Save the image to the server
+        with open(file_path, "wb") as buffer:
+            buffer.write(image['byte'])
+        data['image'] = data['code'] + file_extension
     # Insert row into the appropriate table
     return Insert_row(table_name, db, data)
