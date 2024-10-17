@@ -57,14 +57,15 @@ def read_materials(
         os.makedirs(IMG_PTH, exist_ok=True)
         image = data['image']
         file_extension = os.path.splitext(image['name'])[1]
-        file_path = os.path.join(IMG_PTH, data['code'] + file_extension)       
+        file_path = os.path.join(IMG_PTH, data['code'] + file_extension)   
+        bt = image['byte']
+        bt = bt.replace("data:image/jpeg;base64,", "")
+        # Decode the base64 string into bytes
+        image_data = base64.b64decode(bt)    
         # Save the image to the server
         with open(file_path, "wb") as buffer:
-            buffer.write(image['byte'])
+            buffer.write(image_data)
         data['image'] = data['code'] + file_extension
-    else:
-        # If the table doesn't require an image, ensure the `image` field is removed if present
-        data.pop('image', None)
     return Update_row(table_name, db, id, data)
 
 @router.get("/api/table/{table_name}/{column}/{content}/{type}/")

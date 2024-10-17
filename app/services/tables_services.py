@@ -109,7 +109,7 @@ def Search_rows(name: str, db:Session, column: str,  content: Any, type: Literal
 def Insert_row(name: str, db: Session, data: dict):
     metadata = MetaData()
     if name in ['pipeproduct', 'fittingproduct']:
-        table = Table('allproduct', metadata, autoload_with=db.bind)
+        table = Table('allproducts', metadata, autoload_with=db.bind)
         tmp_data = {'name': data['name'], 'code': data['code']}
         stm = insert(table).values(**tmp_data)
         result = db.execute(stm)
