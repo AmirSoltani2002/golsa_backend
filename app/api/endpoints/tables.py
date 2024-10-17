@@ -1,9 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
-from typing import List, Any, Union, Literal, Optional
-from app.db import inspector
+from typing import Any, Literal, Optional
 from app.services.tables_services import Get_tables, Get_table_columns_types, Get_rows, Delete_row, Update_row, Search_rows, Insert_row
-from app.api.dependencies import get_db, get_current_user
+from app.api.dependencies import get_db, get_current_user, image_dependency
 from app.api.dependencies import IMG_PTH
 import os
 import shutil
@@ -67,7 +66,7 @@ def read_materials(
     table_name: str, 
     db: Session = Depends(get_db), 
     user = Depends(get_current_user), 
-    image: Optional[UploadFile] = File(None)
+    image: Optional[UploadFile] = None
 ):
     # Check user permissions
     if user['role'] == "viewer":

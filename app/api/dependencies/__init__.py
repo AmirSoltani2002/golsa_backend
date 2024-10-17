@@ -1,7 +1,7 @@
 from app.db import SessionLocal
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
-from fastapi import Security, HTTPException, Depends, status
+from fastapi import Security, HTTPException, Depends, status, UploadFile, File
 from fastapi.security import OAuth2PasswordBearer
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -42,3 +42,8 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
         return {"username": username, "role": role}
     except JWTError:
         raise credentials_exception
+    
+def image_dependency(table_name: str):
+    if table_name in ['pipeproduct', 'fittingproduct']:
+        return File(...)
+    return None
