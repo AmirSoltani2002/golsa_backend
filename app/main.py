@@ -7,6 +7,7 @@ from app.api.endpoints import mixentries, materials, operators, machines, produc
 from app.core.config import settings
 from app.db import Base
 from app.db import engine
+from fastapi.staticfiles import StaticFiles
 
 # Import your models in the correct order
 from app.models import PipeProduct, FittingProduct, Operator, Machine, Material, RawMaterial, Recipe, MixEntry, AllProduct
@@ -22,6 +23,7 @@ from app.models import PipeProduct, FittingProduct, Operator, Machine, Material,
 # Initialize the FastAPI app
 app = FastAPI(title=settings.PROJECT_NAME)
 
+app.mount("/static", StaticFiles(directory="/home/webapp/golsa_polymer/images"), name="static")
 # url = "https://bhieenrmgrupislmtels.supabase.co"
 # key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoaWVlbnJtZ3J1cGlzbG10ZWxzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc5NDQ2MzAsImV4cCI6MjA0MzUyMDYzMH0.gmyyxwP_GC8_khjatC_MDZhT2_E9AapMkFPX9JiWdG0"
 # supabase: Client = create_client(url, key)

@@ -6,9 +6,9 @@ from app.db import Base
 class FittingProduct(Base):
     __tablename__ = 'fittingproduct'
 
-    id = Column(Integer, index=True, autoincrement=True)
+    id = Column(Integer, index=True, autoincrement=True, primary_key = True)
     name = Column(String)
-    code = Column(String, primary_key=True, index=True)
+    code = Column(String, unique=True, index=True)
     currency = Column(String)
     number_box = Column(Integer)
     number_pallet = Column(Integer)
