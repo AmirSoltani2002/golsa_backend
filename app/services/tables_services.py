@@ -113,11 +113,11 @@ def Insert_row(name: str, db: Session, data: dict):
         table = Table(name, metadata, autoload_with=db.bind)
         stm = insert(table).values(**data)
         result = db.execute(stm)
-        if name in ['pipeproduct', 'fittingproduct']:
-            table = Table('allproducts', metadata, autoload_with=db.bind)
-            tmp_data = {'name': data['name'], 'code': data['code']}
-            stm = insert(table).values(**tmp_data)
-            db.execute(stm)
+        # if name in ['pipeproduct', 'fittingproduct']:
+        #     table = Table('allproducts', metadata, autoload_with=db.bind)
+        #     tmp_data = {'name': data['name'], 'code': data['code']}
+        #     stm = insert(table).values(**tmp_data)
+        #     db.execute(stm)
         db.commit()
         return result.inserted_primary_key[0]
     except SQLAlchemyError as e:
