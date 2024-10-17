@@ -66,7 +66,7 @@ def read_materials(
     table_name: str, 
     db: Session = Depends(get_db), 
     user = Depends(get_current_user), 
-    image: Optional[UploadFile] = None
+    image = None
 ):
     # Check user permissions
     if user['role'] == "viewer":
