@@ -91,7 +91,7 @@ def read_materials(
         raise HTTPException(status_code=404, detail="Not found")
 
     # Handle image upload for specific tables
-    if table_name in ['pipeproduct', 'fittingproduct'] and data['image'] != None:        
+    if table_name in ['pipeproduct', 'fittingproduct'] and data['image'] != '':        
         # If an image is uploaded, save it and add the file path to `data`
         os.makedirs(IMG_PTH, exist_ok=True)
         image = data['image']
