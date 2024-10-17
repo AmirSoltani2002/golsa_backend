@@ -122,6 +122,6 @@ def Insert_row(name: str, db: Session, data: dict):
         return result.inserted_primary_key[0]
     except SQLAlchemyError as e:
         db.rollback()
-        raise HTTPException(status_code = 422, detail = "Unprocessable entity")
+        raise e
 
 
