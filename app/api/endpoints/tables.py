@@ -104,6 +104,8 @@ def read_materials(
         # Save the image to the server
         with open(file_path, "wb") as buffer:
             buffer.write(image_data)
+        if data['code'] == '':
+            raise HTTPException(status_code=422, detail="Null value for required data")
         data['image'] = data['code'] + file_extension
     # Insert row into the appropriate table
     return Insert_row(table_name, db, data)
