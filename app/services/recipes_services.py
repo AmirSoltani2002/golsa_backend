@@ -23,7 +23,8 @@ def Get_recipes(db: Session):
         Material.material, 
         RawMaterial.id, 
         RawMaterial.rawmaterial, 
-        RawMaterial.company)\
+        RawMaterial.company, 
+        Recipe.weight)\
             .join(Recipe.rawmaterial)\
                 .join(Recipe.material)\
     .all()
@@ -35,6 +36,7 @@ def Get_recipes(db: Session):
             "rawmaterial_id": row[3],
             "rawmaterial_name": row[4],
             "rawmaterial_company": row[5],
+            "weight": row[6],
         }
         for row in recipes
     ]
