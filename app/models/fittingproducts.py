@@ -21,6 +21,6 @@ class FittingProduct(Base):
     quality = Column(String)
     size = Column(Integer)
     tickness = Column(Integer)
-    weight = Column(Float)
+    weight = Column(String)
     image = Column(String)
 
