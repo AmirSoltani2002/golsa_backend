@@ -112,20 +112,19 @@ def Search_rows(name: str, db:Session, column: str,  content: Any, type: Literal
         raise HTTPException(status_code = 422, detail = str(e))
 
 def Insert_row(name: str, db: Session, data: dict):
-    try:
-        metadata = MetaData()
-        table = Table(name, metadata, autoload_with=db.bind)
-        stm = insert(table).values(**data)
-        result = db.execute(stm)
-        if name in ['pipeproduct', 'fittingproduct']:
-            table = Table('allproducts', metadata, autoload_with=db.bind)
-            tmp_data = {'name': data['name'], 'code': data['code']}
-            stm = insert(table).values(**tmp_data)
-            db.execute(stm)
-        db.commit()
-        return result.inserted_primary_key[0]
-    except SQLAlchemyError as e:
-        db.rollback()
-        raise HTTPException(status_code = 422, detail = str(e))
+    metadata = MetaData()
+    table = Table(name, metadata, autoload_with=db.bind)
+    stm = insert(table).values(**data)
+    result = db.execute(stm)
+    if name in ['pipeproduct', 'fittingproduct']:
+        table = Table('allproducts', metadata, autoload_with=db.bind)
+        tmp_data = {'name': data['name'], 'code': data['code']}
+        stm = insert(table).values(**tmp_data)
+        db.execute(stm)
+    db.commit()
+    return result.inserted_primary_key[0]
+    # except SQLAlchemyError as e:
+    #     db.rollback()
+    #     raise HTTPException(status_code = 422, detail = str(e))
 
 
