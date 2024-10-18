@@ -113,9 +113,6 @@ def Search_rows(name: str, db:Session, column: str,  content: Any, type: Literal
 
 def Insert_row(name: str, db: Session, data: dict):
     metadata = MetaData()
-    table = Table(name, metadata, autoload_with=db.bind)
-    stm = insert(table).values(**data)
-    result = db.execute(stm)
     if name in ['pipeproduct', 'fittingproduct']:
         if not data['image']:
             data['image'] = ''
@@ -123,6 +120,9 @@ def Insert_row(name: str, db: Session, data: dict):
         tmp_data = {'name': data['name'], 'code': data['code']}
         stm = insert(table).values(**tmp_data)
         db.execute(stm)
+    table = Table(name, metadata, autoload_with=db.bind)
+    stm = insert(table).values(**data)
+    result = db.execute(stm)
     db.commit()
     return result.inserted_primary_key[0]
     # except SQLAlchemyError as e:
