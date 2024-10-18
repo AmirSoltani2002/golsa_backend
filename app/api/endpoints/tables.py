@@ -52,7 +52,8 @@ def read_materials(
     if user['role'] == "viewer":
         raise HTTPException(status_code=403, detail="Not enough permission")
     # Handle image upload for specific tables
-    if table_name in ['pipeproduct', 'fittingproduct'] and data['image'] != None:        
+    # Handle image upload for specific tables
+    if table_name in ['pipeproduct', 'fittingproduct'] and data['image']:     
         # If an image is uploaded, save it and add the file path to `data`
         os.makedirs(IMG_PTH, exist_ok=True)
         image = data['image']
@@ -65,6 +66,8 @@ def read_materials(
         # Save the image to the server
         with open(file_path, "wb") as buffer:
             buffer.write(image_data)
+        if data['code'] == '':
+            raise HTTPException(status_code=422, detail="Null value for required data")
         data['image'] = data['code'] + file_extension
     return Update_row(table_name, db, id, data)
 
