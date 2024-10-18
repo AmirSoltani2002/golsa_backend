@@ -42,13 +42,23 @@ def Get_rows(name:str, db: Session, start: int, end: int, order: str, asc: bool)
     try:
         DESC = 'DESC' if not asc else 'ASC'
         columns: list = Get_table_columns(name, db)
-        result = db.execute(
+        if name == 'recipes':
+            result = db.execute(
                 text(f"""SELECT *
                     FROM {name}
+                    WHERE weight > 0
                     ORDER BY {order} {DESC}
                     LIMIT ({end} - {start} + 1) OFFSET {start};
                     """)
                 ).fetchall()
+        else:
+            result = db.execute(
+                    text(f"""SELECT *
+                        FROM {name}
+                        ORDER BY {order} {DESC}
+                        LIMIT ({end} - {start} + 1) OFFSET {start};
+                        """)
+                    ).fetchall()
         if name != 'materials':
             return [dict(zip(columns, list(row))) for row in result] 
         else:
