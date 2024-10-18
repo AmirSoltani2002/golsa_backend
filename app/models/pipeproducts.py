@@ -12,6 +12,7 @@ class PipeProduct(Base):
     currency = Column(String)
     usage = Column(String)
     export = Column(Boolean)
+    active = Column(Boolean)
     size = Column(Integer)
     tickness = Column(Integer)
     quality = Column(String)

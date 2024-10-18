@@ -17,6 +17,7 @@ class FittingProduct(Base):
     usage = Column(String)
     model = Column(String)
     export = Column(Boolean)
+    active = Column(Boolean)
     quality = Column(String)
     size = Column(Integer)
     tickness = Column(Integer)
