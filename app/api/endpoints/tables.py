@@ -53,7 +53,7 @@ def read_materials(
         raise HTTPException(status_code=403, detail="Not enough permission")
     # Handle image upload for specific tables
     # Handle image upload for specific tables
-    if table_name in ['pipeproduct', 'fittingproduct'] and data['image']:     
+    if (table_name in ['pipeproduct', 'fittingproduct'] ) and (data['image']) and (not isinstance(data['image'], str)):     
         # If an image is uploaded, save it and add the file path to `data`
         os.makedirs(IMG_PTH, exist_ok=True)
         image = data['image']
