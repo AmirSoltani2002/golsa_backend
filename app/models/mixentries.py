@@ -21,6 +21,7 @@ class MixEntry(Base):
     time = Column(Time)
     date = Column(String)
     fitting = Column(Boolean)
+    amount = Column(Integer)
 
     product = relationship("AllProduct", backref="mixentries")
     operator = relationship("Operator", backref="mixentries")
