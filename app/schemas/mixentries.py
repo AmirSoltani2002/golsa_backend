@@ -13,6 +13,7 @@ class MixEntry(BaseModel):
     time: tm
     date: str
     fitting: bool
+    amount: int
     
     # @validator('date', pre=True)
     # def parse_persian_date(cls, value):
