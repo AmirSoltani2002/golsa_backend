@@ -134,6 +134,11 @@ def Insert_row(name: str, db: Session, data: dict):
         tmp_data = {'name': data['name'], 'code': data['code']}
         stm = insert(table).values(**tmp_data)
         db.execute(stm)
+    elif name == 'rawmaterials':
+        table = Table('recipes', metadata, autoload_with=db.bind)
+        tmp_data = {'weight': 0, 'material_id': 16, 'rawmaterial_id': int(result.inserted_primary_key[0])}
+        stm = insert(table).values(**tmp_data)
+        db.execute(stm)
     db.commit()
     return result.inserted_primary_key[0]
     # except SQLAlchemyError as e:
