@@ -31,7 +31,5 @@ def create_mixer_endpoint(mix: dict, db: Session = Depends(get_db), user = Depen
 
 @router.get("/api/mixentry/")
 def read_materials(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    materials = Get_mixentry(db)
-    if not materials:
-        raise HTTPException(status_code=404, detail="Materials not found")
-    return materials
+    mixentries = Get_mixentry(db)
+    return mixentries
