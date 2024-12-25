@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from typing import Union
 from app.schemas.mixentries import MixEntry
 from app.models.mixentries import MixEntry as ME
+from models import MixEntry, AllProduct, Operator, Machine, Recipe, Material
 
 
 def Create_mixentry(db: Session, mix: MixEntry):
@@ -15,3 +16,10 @@ def Create_mixentry(db: Session, mix: MixEntry):
     db.refresh(db_mix)
     return db_mix
 
+def Get_mixentry(db: Session):
+    return db.query(MixEntry).\
+        join(AllProduct, MixEntry.product_id == AllProduct.code).\
+        join(Operator, MixEntry.operator_id == Operator.id).\
+        join(Machine, MixEntry.line_id == Machine.id).\
+        join(Material, MixEntry.recipe_code == Material.id).\
+        all()
