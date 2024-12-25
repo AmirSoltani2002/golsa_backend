@@ -29,7 +29,7 @@ def create_mixer_endpoint(mix: dict, db: Session = Depends(get_db), user = Depen
     mix = mixer_schemas.MixEntry(**mix)
     return Create_mixentry(db=db, mix=mix)
 
-@router.get("/api/mixentry/", response_model=List[mixer_schemas.MixEntry])
+@router.get("/api/mixentry/")
 def read_materials(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     materials = Get_mixentry(db)
     if not materials:
