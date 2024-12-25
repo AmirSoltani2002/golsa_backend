@@ -9,7 +9,7 @@ class PipeProduct(Base):
     id = Column(Integer, index=True, autoincrement=True, primary_key = True)
     name = Column(String)
     code = Column(String, unique=True, index=True)
-    currency = Column(String)
+    unit = Column(String)
     usage = Column(String)
     export = Column(Boolean)
     active = Column(Boolean)

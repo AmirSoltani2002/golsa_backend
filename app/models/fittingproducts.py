@@ -9,7 +9,7 @@ class FittingProduct(Base):
     id = Column(Integer, index=True, autoincrement=True, primary_key = True)
     name = Column(String)
     code = Column(String, unique=True, index=True)
-    currency = Column(String)
+    unit = Column(String)
     number_box = Column(Integer)
     number_pallet = Column(Integer)
     entity = Column(String)
