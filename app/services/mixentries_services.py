@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from typing import Union
 from app.schemas.mixentries import MixEntry
 from app.models.mixentries import MixEntry as ME
-from models import MixEntry, AllProduct, Operator, Machine, Recipe, Material
+from app.models import MixEntry, AllProduct, Operator, Machine, Recipe, Material
 
 
 def Create_mixentry(db: Session, mix: MixEntry):
