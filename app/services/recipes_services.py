@@ -30,13 +30,13 @@ def Get_recipes(db: Session):
     .all()
     flattened_result = [
         {
-            "recipe_id": row[0],
-            "material_id": row[1],
-            "material_name": row[2],
-            "rawmaterial_id": row[3],
-            "rawmaterial_name": row[4],
-            "rawmaterial_company": row[5],
-            "weight": row[6],
+            "کد دستور تولید": row[0],
+            "کد محصول": row[1],
+            "نام محصول": row[2],
+            "کد ماده اولیه": row[3],
+            "نام ماده اولیه": row[4],
+            "شرکت تولیدی ماده اولیه": row[5],
+            "وزن": row[6],
         }
         for row in recipes
     ]
