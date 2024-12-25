@@ -36,7 +36,7 @@ def Get_recipes(db: Session):
             "کد ماده اولیه": row[3],
             "نام ماده اولیه": row[4],
             "شرکت تولیدی ماده اولیه": row[5],
-            "وزن": row[6],
+            "وزن (گرم)": row[6],
         }
         for row in recipes
     ]
