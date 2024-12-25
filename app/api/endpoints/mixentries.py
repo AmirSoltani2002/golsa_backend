@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.schemas import mixentries as mixer_schemas
 from typing import List
-from app.services.mixentries_services import Create_mixentry
+from app.services.mixentries_services import Create_mixentry, Get_mixentry
 from app.services.materials_services import Post_material
 from app.services.recipes_services import Create_recipes
 from app.api.dependencies import get_db, get_current_user
@@ -29,9 +29,9 @@ def create_mixer_endpoint(mix: dict, db: Session = Depends(get_db), user = Depen
     mix = mixer_schemas.MixEntry(**mix)
     return Create_mixentry(db=db, mix=mix)
 
-@router.get("/api/mixentry/", response_model=List[mixer_schemas])
+@router.get("/api/mixentry/", response_model=List[mixer_schemas.MixEntry])
 def read_materials(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    materials = Get_mixentries(db)
+    materials = Get_mixentry(db)
     if not materials:
         raise HTTPException(status_code=404, detail="Materials not found")
     return materials
