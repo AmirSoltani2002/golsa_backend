@@ -28,6 +28,3 @@ class MixEntry(BaseModel):
     #         return gregorian_date
     #     except Exception as e:
     #         raise e
-
-class MixEntryResponse(MixEntry):
-    id: int
