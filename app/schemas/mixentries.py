@@ -12,7 +12,7 @@ class MixEntry(BaseModel):
     recipe_code: int
     time: tm
     date: str
-    fitting: bool
+    category: str
     amount: int
     
     # @validator('date', pre=True)
