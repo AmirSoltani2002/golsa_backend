@@ -20,7 +20,7 @@ class MixEntry(Base):
     recipe_code = Column(ForeignKey('materials.id', ondelete='SET NULL'))
     time = Column(Time)
     date = Column(String)
-    fitting = Column(Boolean)
+    category = Column(String)
     amount = Column(Integer)
 
     product = relationship("AllProduct", backref="mixentries")

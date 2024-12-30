@@ -7,5 +7,6 @@ class Machine(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     machine = Column(String)
-    fitting = Column(Boolean)
+    category = Column(String)
+
 
