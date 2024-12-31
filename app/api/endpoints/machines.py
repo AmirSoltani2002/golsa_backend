@@ -11,9 +11,9 @@ from app.api.dependencies import get_db
 
 router = APIRouter()
 
-@router.get("/api/machine/{fitting}", response_model=List[Machine])
-def read_materials(fitting: bool, db: Session = Depends(get_db)):
-    machines = Get_machines(db, fitting)
+@router.get("/api/machine/{category}", response_model=List[Machine])
+def read_materials(category: str, db: Session = Depends(get_db)):
+    machines = Get_machines(db, category)
     if not machines:
         raise HTTPException(status_code=404, detail="Machines not found")
     return machines
