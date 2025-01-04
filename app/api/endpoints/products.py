@@ -10,7 +10,7 @@ router = APIRouter()
 
 @router.get("/api/product/{category}", response_model=List[Product])
 def read_materials(category: str, db: Session = Depends(get_db)):
-    products = Get_fittings(db) if category else Get_pipes(db)
+    products = Get_fittings(db) if category == 'اتصالات' else Get_pipes(db)
     if not products:
         raise HTTPException(status_code=404, detail="Products not found")
     return products
