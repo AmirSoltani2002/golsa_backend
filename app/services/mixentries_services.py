@@ -1,8 +1,10 @@
 from sqlalchemy.orm import Session
-from typing import Union
+from typing import Union, List
 from app.schemas.mixentries import MixEntry
 from app.models.mixentries import MixEntry as ME
+from app.models.rawmaterials import RawMaterial as RM
 from app.models import MixEntry, AllProduct, Operator, Machine, Recipe, Material
+
 
 
 def Create_mixentry(db: Session, mix: MixEntry):
@@ -17,6 +19,7 @@ def Create_mixentry(db: Session, mix: MixEntry):
     return db_mix
 
 def Get_mixentry(db: Session):
+    materials = db.query(RM.id, RM.rawmaterial, RM.company).all()
     results = db.query(
         MixEntry.id, 
         MixEntry.shift, 
@@ -36,8 +39,17 @@ def Get_mixentry(db: Session):
             .join(MixEntry.product)\
             .join(MixEntry.operator)\
     .all()
-    flattened_result = [
-        {
+    flattened_result = []
+    for row in results:
+        recipe = {}
+        for material in materials:
+            recipe[material[0]] = 0
+        self_recipe: List[Recipe] = db.query(Recipe).where(Recipe.material_id == row[7]).all()
+        for ins in self_recipe:
+            recipe[ins.rawmaterial_id] = ins.weight
+        for material in materials:
+            recipe[material[1] + ' ' + material[2]] = recipe.pop(material[0])
+        flattened_result.append({**{
             "کد دستور تولید": row[7],
             "شیفت": row[1],
             "توضیح": row[2],
@@ -51,7 +63,6 @@ def Get_mixentry(db: Session):
             "نام محصول": row[11],
             "کد اپراتور": row[12],
             "نام اپراتور": row[13],
-        }
-        for row in results
-    ]
+        }, **recipe})
+        
     return flattened_result
