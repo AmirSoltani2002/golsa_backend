@@ -31,5 +31,5 @@ def create_mixer_endpoint(mix: dict, db: Session = Depends(get_db), user = Depen
 
 @router.get("/api/mixentry/")
 def read_materials(skip: int = 0, limit: int = 10, db: Session = Depends(get_db), type = "one"):
-    mixentries = Get_mixentry(db)
+    mixentries = Get_mixentry(db, type)
     return mixentries
