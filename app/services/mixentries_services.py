@@ -45,8 +45,8 @@ def Get_mixentry(db: Session, type: str):
         for material in materials:
             recipe[material[0]] = 0
         self_recipe: List[Recipe] = db.query(Recipe).where(Recipe.material_id == row[7]).all()
-        if not row[6]:
-            row[6] = 0
+        # if not row[6]:
+        #     row[6] = 0
         for ins in self_recipe:
             recipe[ins.rawmaterial_id] = ins.weight * row[6] if type == "total" else ins.weight
         for material in materials:
