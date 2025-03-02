@@ -153,8 +153,8 @@ def Get_by_id(name:str, id: int, db: Session):
                 WHERE id = {id};
                 """)
             ).fetchall()
-        print("ahmad", result)
-        return {'a': 2}
+        columns = Get_table_columns(name, db)
+        return [dict(zip(columns, list(row))) for row in result] 
     except SQLAlchemyError as e:
         raise HTTPException(status_code = 422, detail = str(e))
 
