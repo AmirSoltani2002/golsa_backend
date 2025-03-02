@@ -153,7 +153,7 @@ def Get_by_id(name:str, id: int, db: Session):
                 WHERE id = {id};
                 """)
             ).fetchall()
-        return result
+        return result.to_dict()
     except SQLAlchemyError as e:
         raise HTTPException(status_code = 422, detail = str(e))
 
