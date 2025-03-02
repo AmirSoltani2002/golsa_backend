@@ -53,20 +53,17 @@ def Get_mixentry(db: Session, type: str):
         for material in materials:
             recipe[material[1] + ' ' + material[2]] = recipe.pop(material[0])
         flattened_result.append({**{
-            "مقدار": row[7],
-            "شیفت": row[1],
-            "توضیح": row[2],
-            "زمان شروع": row[3],
-            "زمان پایان": row[4],
-            "تاریخ": row[5],
-            "کتگوری": row[6],
-            "دستور تولید": row[8],
-            "کد خط تولید": row[9],
-            "نام خط تولید": row[10],
             "کد محصول": row[11],
             "نام محصول": row[12],
-            "کد اپراتور": row[13],
+            "کتگوری": row[6],
+            "نام خط تولید": row[10],
             "نام اپراتور": row[14],
+            "شیفت": row[1],
+            "تاریخ": row[5],
+            "زمان شروع": row[3],
+            "زمان پایان": row[4],
+            "تعداد میکس": row[7],
+            "توضیح": row[2],
         }, **recipe})
         
     return flattened_result
