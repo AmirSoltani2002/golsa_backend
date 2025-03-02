@@ -45,27 +45,28 @@ def Get_mixentry(db: Session, type: str):
         recipe = {}
         for material in materials:
             recipe[material[0]] = 0
-        self_recipe: List[Recipe] = db.query(Recipe).where(Recipe.material_id == row[7]).all()
+        self_recipe: List[Recipe] = db.query(Recipe).where(Recipe.material_id == row[8]).all()
         # if not row[6]:
         #     row[6] = 0
         for ins in self_recipe:
-            recipe[ins.rawmaterial_id] = ins.weight * float(row[6]) if type == "total" else ins.weight
+            recipe[ins.rawmaterial_id] = ins.weight * float(row[7]) if type == "total" else ins.weight
         for material in materials:
             recipe[material[1] + ' ' + material[2]] = recipe.pop(material[0])
         flattened_result.append({**{
-            "کد دستور تولید": row[7],
+            "مقدار": row[7],
             "شیفت": row[1],
             "توضیح": row[2],
-            "زمان": row[3],
-            "تاریخ": row[4],
-            "کتگوری": row[5],
-            "مقدار": row[6],
-            "کد خط": row[8],
-            "نام خط": row[9],
-            "کد محصول": row[10],
-            "نام محصول": row[11],
-            "کد اپراتور": row[12],
-            "نام اپراتور": row[13],
+            "زمان شروع": row[3],
+            "زمان پایان": row[4],
+            "تاریخ": row[5],
+            "کتگوری": row[6],
+            "دستور تولید": row[8],
+            "کد خط تولید": row[9],
+            "نام خط تولید": row[10],
+            "کد محصول": row[11],
+            "نام محصول": row[12],
+            "کد اپراتور": row[13],
+            "نام اپراتور": row[14],
         }, **recipe})
         
     return flattened_result
