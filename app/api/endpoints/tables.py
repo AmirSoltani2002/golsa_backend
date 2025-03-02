@@ -28,7 +28,7 @@ def read_materials(table_name: str, db: Session = Depends(get_db), user = Depend
     return ret
 
 @router.get("/api/table/{table_name}/{id}/")
-def read_materials(table_name: str, id: int, db: Session = Depends(get_db), user = Depends(get_current_user)):
+def read_materials(table_name: str, id: int, db: Session = Depends(get_db)):
     ret = Get_by_id(table_name, id, db)
     if not ret:
         return HTTPException(status_code = 404, detail = "not found")
