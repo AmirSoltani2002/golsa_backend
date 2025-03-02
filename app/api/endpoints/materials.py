@@ -21,6 +21,10 @@ def read_materials(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)
 @router.get("/api/material/{id}/", response_model=List[MaterialWithRawMaterial])
 def get_material_by_id(id: int, db: Session = Depends(get_db)):
     material = Get_material_by_id(id, db)
+    res = []
     if not material:
         raise HTTPException(status_code=404, detail="Material not found")
-    return material
+    for data in material:
+        if data['rawmaterial']['confirm']:
+            res.append(data)
+    return res
