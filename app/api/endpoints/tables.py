@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
 from typing import Any, Literal, Optional
-from app.services.tables_services import Get_tables, Get_table_columns_types, Get_rows, Delete_row, Update_row, Search_rows, Insert_row
+from app.services.tables_services import Get_tables, Get_table_columns_types, Get_rows, Delete_row, Update_row, Search_rows, Insert_row, Get_by_id
 from app.api.dependencies import get_db, get_current_user, image_dependency
 from app.api.dependencies import IMG_PTH
 import os
@@ -25,6 +25,13 @@ def read_materials(table_name: str, db: Session = Depends(get_db), user = Depend
                 if list(ret[i].keys()) == ['price']:
                     del ret[i]
                     break
+    return ret
+
+@router.get("/api/table/{table_name}/{id}/")
+def read_materials(table_name: str, id: int, db: Session = Depends(get_db), user = Depends(get_current_user)):
+    ret = Get_by_id(table_name, id, db)
+    if not ret:
+        return HTTPException(status_code = 404, detail = "not found")
     return ret
 
 @router.get("/api/values/{table_name}/{start}/{end}/{order}/{asc}/")

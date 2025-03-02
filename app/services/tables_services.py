@@ -145,4 +145,16 @@ def Insert_row(name: str, db: Session, data: dict):
     #     db.rollback()
     #     raise HTTPException(status_code = 422, detail = str(e))
 
+def Get_by_id(name:str, id: int, db: Session):
+    try:
+        result = db.execute(
+            text(f"""SELECT *
+                FROM {name}
+                WHERE id = {id};
+                """)
+            ).fetchall()
+        return result
+    except SQLAlchemyError as e:
+        raise HTTPException(status_code = 422, detail = str(e))
+
 
