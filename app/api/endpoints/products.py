@@ -16,7 +16,7 @@ def read_materials(category: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Products not found")
     return products
 
-@router.get("/api/product/{code}", response_model=List[Product])
+@router.get("/api/product/{code}/", response_model=List[Product])
 def read_materials(code: str, db: Session = Depends(get_db)):
     product = Get_all_prods(db, code)
     if not product:
