@@ -39,7 +39,6 @@ def Get_mixentry(db: Session, type: str):
             .join(MixEntry.machine)\
             .join(MixEntry.product)\
             .join(MixEntry.operator)\
-            .join(MixEntry.recipe_code)\
     .all()
     flattened_result = []
     for row in results:
@@ -47,6 +46,7 @@ def Get_mixentry(db: Session, type: str):
         for material in materials:
             recipe[material[0]] = 0
         product = db.query(PipeProduct).filter(PipeProduct.code == row[11]).first()
+        mat = db.query(Material).filter(Material.id == row[8]).first()
         if not product:
             product = db.query(FittingProduct).filter(FittingProduct.code == row[11]).first()
         self_recipe: List[Recipe] = db.query(Recipe).where(Recipe.material_id == row[8]).all()
@@ -62,7 +62,7 @@ def Get_mixentry(db: Session, type: str):
             "نام محصول": row[12],
             "رنگ": product.color,
             "کتگوری": row[6],
-            "گروه محصولات": row[12],
+            "گروه محصولات": mat.material if mat else None,
             "نام خط تولید": row[10],
             "نام اپراتور": row[14],
             "شیفت": row[1],
