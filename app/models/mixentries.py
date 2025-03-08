@@ -25,6 +25,7 @@ class MixEntry(Base):
     category = Column(String)
     amount = Column(Integer)
 
+
     product = relationship("AllProduct", backref="mixentries")
     operator = relationship("Operator", backref="mixentries")
     machine = relationship("Machine", backref="mixentries")

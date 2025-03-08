@@ -63,6 +63,7 @@ def Get_mixentry(db: Session, type: str):
             "رنگ": product.color,
             "کتگوری": row[6],
             "گروه محصولات": mat.material if mat else None,
+            "محل فروش": "صادراتی" if product.export else "داخلی",
             "نام خط تولید": row[10],
             "نام اپراتور": row[14],
             "شیفت": row[1],
