@@ -20,6 +20,7 @@ def read_materials(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)
 
 @router.get("/api/material/{id}/", response_model=List[MaterialWithRawMaterial])
 def get_material_by_id(id: int, db: Session = Depends(get_db)):
+    id = 16 #set all as Sayer
     material = Get_material_by_id(id, db)
     res = []
     if not material:
