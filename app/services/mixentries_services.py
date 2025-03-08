@@ -39,6 +39,7 @@ def Get_mixentry(db: Session, type: str):
             .join(MixEntry.machine)\
             .join(MixEntry.product)\
             .join(MixEntry.operator)\
+            .join(MixEntry.recipe_code)\
     .all()
     flattened_result = []
     for row in results:
@@ -61,6 +62,7 @@ def Get_mixentry(db: Session, type: str):
             "نام محصول": row[12],
             "رنگ": product.color,
             "کتگوری": row[6],
+            "گروه محصولات": row[12],
             "نام خط تولید": row[10],
             "نام اپراتور": row[14],
             "شیفت": row[1],
