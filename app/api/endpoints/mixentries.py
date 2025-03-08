@@ -19,13 +19,13 @@ def create_mixer_endpoint(mix: mixer_schemas.MixEntry, db: Session = Depends(get
 def create_mixer_endpoint(mix: dict, db: Session = Depends(get_db), user = Depends(get_current_user)):
     if user['role'] == 'viewer':
         raise HTTPException(status_code=403, detail="Not enough permission")
-    material = Post_material(db)
+    #material = Post_material(db)
     rawmaterials = mix['recipe']
     recipes_list = []
+    material_id = mix['recipe_code']
     for rawmaterial_id, weight in rawmaterials.items():
-        recipes_list.append({'rawmaterial_id': int(rawmaterial_id), 'weight': float(weight), 'material_id':int(material.id)})
-    recipes = Create_recipes(db, recipes_list)
-    mix['recipe_code'] = material.id
+        recipes_list.append({'rawmaterial_id': int(rawmaterial_id), 'weight': float(weight), 'material_id':int(material_id)})
+    Create_recipes(db, recipes_list)
     mix = mixer_schemas.MixEntry(**mix)
     return Create_mixentry(db=db, mix=mix)
 
