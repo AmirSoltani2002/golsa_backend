@@ -60,7 +60,7 @@ def Get_mixentry(db: Session, type: str):
         flattened_result.append({**{
             "کد محصول": row[11],
             "نام محصول": row[12],
-            "رنگ": product.color,
+            "رنگ": product.color if product else None,
             "کتگوری": row[6],
             "گروه محصولات": mat.material if mat else None,
             "محل فروش": "صادراتی" if product.export else "داخلی",
