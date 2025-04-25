@@ -11,3 +11,4 @@ class Recipe(BaseModel):
     material: Material
     rawmaterial: RawMaterial
     weight: float
+    mixEntries_id: int

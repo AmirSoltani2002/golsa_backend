@@ -14,6 +14,7 @@ class Recipe(Base):
     weight = Column(Float)
     material_id = Column(Integer, ForeignKey('materials.id', ondelete='SET NULL'))
     rawmaterial_id = Column(Integer, ForeignKey('rawmaterials.id', ondelete='SET NULL'))  # ForeignKey reference
+    mixEntries_id = Column(Integer, ForeignKey('mixentries.id', ondelete='SET NULL'))
 
     material = relationship("Material", backref="recipes")
     rawmaterial = relationship("RawMaterial", backref="recipes")

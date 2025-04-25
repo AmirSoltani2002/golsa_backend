@@ -14,8 +14,7 @@ class MixEntry(BaseModel):
     time_end: tm
     date: str
     category: str
-    amount: int
-    
+    amount: int    
     # @validator('date', pre=True)
     # def parse_persian_date(cls, value):
     #     try:

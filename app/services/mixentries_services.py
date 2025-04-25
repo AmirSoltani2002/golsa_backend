@@ -49,7 +49,7 @@ def Get_mixentry(db: Session, type: str):
         mat = db.query(Material).filter(Material.id == row[8]).first()
         if not product:
             product = db.query(FittingProduct).filter(FittingProduct.code == row[11]).first()
-        self_recipe: List[Recipe] = db.query(Recipe).where(Recipe.material_id == row[8]).all()
+        self_recipe: List[Recipe] = db.query(Recipe).where(Recipe.mixEntries_id == row[0]).all()
         # if not row[6]:
         #     row[6] = 0
         for ins in self_recipe:
