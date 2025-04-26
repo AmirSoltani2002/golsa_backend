@@ -16,6 +16,11 @@ class MixEntry(BaseModel):
     stop_id: int  
     stop_time: int
     time: int
+    @validator('operator_id', 'shift', 'line_id', 'recipe_code', 'amount', 'stop_id', 'stop_time', 'time')
+    def non_negative_validator(cls, v, field):
+        if v < 0:
+            raise ValueError(f"{field.name} must be non-negative")
+        return v
     # @validator('date', pre=True)
     # def parse_persian_date(cls, value):
     #     try:

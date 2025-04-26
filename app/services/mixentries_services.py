@@ -3,7 +3,7 @@ from typing import Union, List
 from app.schemas.mixentries import MixEntry
 from app.models.mixentries import MixEntry as ME
 from app.models.rawmaterials import RawMaterial as RM
-from app.models import MixEntry, AllProduct, Operator, Machine, Recipe, Material, PipeProduct, FittingProduct
+from app.models import MixEntry, AllProduct, Operator, Machine, Recipe, Material, PipeProduct, FittingProduct, Stops
 
 
 
@@ -24,8 +24,8 @@ def Get_mixentry(db: Session, type: str):
         MixEntry.id, 
         MixEntry.shift, 
         MixEntry.description, 
-        MixEntry.time_start, 
-        MixEntry.time_end,
+        MixEntry.time, 
+        Stops.stop_reason,
         MixEntry.date, 
         MixEntry.category,
         MixEntry.amount,
@@ -35,10 +35,12 @@ def Get_mixentry(db: Session, type: str):
         AllProduct.code,
         AllProduct.name,
         Operator.id,
-        Operator.name)\
+        Operator.name,
+        MixEntry.stop_time)\
             .join(MixEntry.machine)\
             .join(MixEntry.product)\
             .join(MixEntry.operator)\
+            .join(MixEntry.stop)\
     .all()
     flattened_result = []
     for row in results:
@@ -68,8 +70,9 @@ def Get_mixentry(db: Session, type: str):
             "نام اپراتور": row[14],
             "شیفت": row[1],
             "تاریخ": row[5],
-            "زمان شروع": row[3],
-            "زمان پایان": row[4],
+            "زمان میکس (دقیقه)": row[3],
+            "علت توقف": row[4],
+            "میزان توقف (دقیقه)": row[13],
             "تعداد میکس": row[7],
             "توضیح": row[2],
         }, **recipe})
