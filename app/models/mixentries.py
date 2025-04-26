@@ -24,7 +24,8 @@ class MixEntry(Base):
     date = Column(String)
     category = Column(String)
     amount = Column(Integer)
-
+    stop_id = Column(ForeignKey('stops.id', ondelete='SET NULL'))
+    stop_time = Column(Integer)
 
     product = relationship("AllProduct", backref="mixentries")
     operator = relationship("Operator", backref="mixentries")

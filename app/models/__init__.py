@@ -8,3 +8,4 @@ from app.models.rawmaterials import RawMaterial
 from app.models.recipes import Recipe
 from app.models.mixentries import MixEntry  # MixEntry references Operator
 from app.models.allproducts import AllProduct
+from app.models.stops import Stops
