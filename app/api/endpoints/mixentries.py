@@ -24,7 +24,7 @@ def create_mixer_endpoint(mix: dict, db: Session = Depends(get_db), user = Depen
     recipes_list = []
     material_id = mix['recipe_code']
     for rawmaterial_id, weight in rawmaterials.items():
-        recipes_list.append({'rawmaterial_id': int(rawmaterial_id), 'weight': float(weight), 'material_id':int(material_id)})
+        recipes_list.append({'rawmaterial_id': int(rawmaterial_id), 'weight': float(weight), 'material_id':int(material_id), 'mixentries_id': int(mix['id'])})
     recipes = Create_recipes(db, recipes_list)
     mix = mixer_schemas.MixEntry(**mix)
     return Create_mixentry(db=db, mix=mix)
