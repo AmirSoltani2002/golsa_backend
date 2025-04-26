@@ -56,8 +56,7 @@ def Get_mixentry(db: Session, type: str):
         #     row[6] = 0
         for ins in self_recipe:
             recipe[ins.rawmaterial_id] = ins.weight * float(row[7]) if type == "total" else ins.weight
-        if row[3]:
-            row[3] = float(row[3]) * float(row[7]) if type == "total" else row[3]
+        total_time = (float(row[3]) * float(row[7]) if type == "total" else float(row[3])) if row[3] else row[3]
         for material in materials:
             recipe[material[1] + ' ' + material[2]] = recipe.pop(material[0])
         
@@ -72,7 +71,7 @@ def Get_mixentry(db: Session, type: str):
             "نام اپراتور": row[14],
             "شیفت": row[1],
             "تاریخ": row[5],
-            "زمان میکس (دقیقه)": row[3],
+            "زمان میکس (دقیقه)": total_time,
             "علت توقف": row[4],
             "میزان توقف (دقیقه)": row[13],
             "تعداد میکس": row[7],
