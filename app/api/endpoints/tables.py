@@ -35,11 +35,11 @@ def read_materials(table_name: str, id: int, db: Session = Depends(get_db)):
     return ret
 
 @router.get("/api/values/{table_name}/{start}/{end}/{order}/{asc}/")
-def read_materials(table_name: str, start: int, end: int, order: str, asc: bool = True, db: Session = Depends(get_db), user = Depends(get_current_user)):
+def read_materials(table_name: str, start: int, end: int, order: str, asc: bool = True, db: Session = Depends(get_db)):
     ret = Get_rows(table_name, db, start, end, order, asc)
-    if user['role'] != 'admin' and table_name == 'rawmaterials':
-            for i in range(len(ret)):
-                del ret[i]['price']
+    # if user['role'] != 'admin' and table_name == 'rawmaterials':
+    #         for i in range(len(ret)):
+    #             del ret[i]['price']
     return ret
 
 @router.delete("/api/table/{table_name}/{id}/")
