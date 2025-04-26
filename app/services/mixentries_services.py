@@ -4,6 +4,7 @@ from app.schemas.mixentries import MixEntry
 from app.models.mixentries import MixEntry as ME
 from app.models.rawmaterials import RawMaterial as RM
 from app.models import MixEntry, AllProduct, Operator, Machine, Recipe, Material, PipeProduct, FittingProduct, Stops
+from app.utils.helper import shift_map
 
 
 
@@ -69,7 +70,7 @@ def Get_mixentry(db: Session, type: str):
             "محل فروش": ("صادراتی" if product.export else "داخلی") if product else None,
             "نام خط تولید": row[10],
             "نام اپراتور": row[14],
-            "شیفت": row[1],
+            "شیفت": shift_map[row[1]],
             "تاریخ": row[5],
             "زمان میکس (دقیقه)": total_time,
             "علت توقف": row[4],
