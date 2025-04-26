@@ -19,8 +19,6 @@ class MixEntry(Base):
     description = Column(String)
     recipe_code = Column(ForeignKey('materials.id', ondelete='SET NULL'))
     #mix_name = Column(ForeignKey('materials.id', ondelete='SET NULL'))
-    time_start = Column(Time)
-    time_end = Column(Time)
     date = Column(String)
     category = Column(String)
     amount = Column(Integer)

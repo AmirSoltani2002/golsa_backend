@@ -10,8 +10,6 @@ class MixEntry(BaseModel):
     product_id: str
     description: str
     recipe_code: int
-    time_start: tm
-    time_end: tm
     date: str
     category: str
     amount: int  
