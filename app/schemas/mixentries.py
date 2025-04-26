@@ -1,4 +1,4 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
 import jdatetime
 from datetime import date as dt
 from datetime import time as tm
@@ -16,10 +16,12 @@ class MixEntry(BaseModel):
     stop_id: int  
     stop_time: int
     time: int
-    @validator('operator_id', 'shift', 'line_id', 'recipe_code', 'amount', 'stop_id', 'stop_time', 'time')
-    def non_negative_validator(cls, v, field):
+
+    @field_validator('operator_id', 'shift', 'line_id', 'recipe_code', 'amount', 'stop_id', 'stop_time', 'time')
+    @classmethod
+    def non_negative_validator(cls, v):
         if v < 0:
-            raise ValueError(f"{field.name} must be non-negative")
+            raise ValueError("Value must be non-negative")
         return v
     # @validator('date', pre=True)
     # def parse_persian_date(cls, value):
