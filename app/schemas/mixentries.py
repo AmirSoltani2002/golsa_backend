@@ -15,6 +15,7 @@ class MixEntry(BaseModel):
     amount: int  
     stop_id: int  
     stop_time: int
+    time: int
     # @validator('date', pre=True)
     # def parse_persian_date(cls, value):
     #     try:
