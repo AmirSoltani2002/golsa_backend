@@ -56,7 +56,8 @@ def Get_mixentry(db: Session, type: str):
         #     row[6] = 0
         for ins in self_recipe:
             recipe[ins.rawmaterial_id] = ins.weight * float(row[7]) if type == "total" else ins.weight
-        row[3] = float(row[3]) * float(row[7]) if type == "total" else float(row[3])
+        if row[3]:
+            row[3] = float(row[3]) * float(row[7]) if type == "total" else row[3]
         for material in materials:
             recipe[material[1] + ' ' + material[2]] = recipe.pop(material[0])
         
