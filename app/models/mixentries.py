@@ -29,7 +29,7 @@ class MixEntry(Base):
     product = relationship("AllProduct", backref="mixentries")
     operator = relationship("Operator", backref="mixentries")
     machine = relationship("Machine", backref="mixentries")
-    # recipe = relationship("Recipe", backref="mixentries")
+    reason = relationship("Reason", backref="mixentries")
 
 
 
