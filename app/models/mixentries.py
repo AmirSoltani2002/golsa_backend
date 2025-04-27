@@ -25,7 +25,7 @@ class MixEntry(Base):
     stop_id = Column(ForeignKey('stops.id', ondelete='SET NULL'))
     stop_time = Column(Integer)
     time = Column(Integer)
-    mainStat = Column(Boolean, default=True)
+    mainstat = Column(Boolean, default=True)
 
     product = relationship("AllProduct", backref="mixentries")
     operator = relationship("Operator", backref="mixentries")

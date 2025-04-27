@@ -19,7 +19,7 @@ def Create_mixentry(db: Session, mix: MixEntry):
     db.refresh(db_mix)
     return db_mix
 
-def Get_mixentry(db: Session, type: str):
+def Get_mixentry(db: Session, type: str, excel = True):
     materials = db.query(RM.id, RM.rawmaterial, RM.company).all()
     results = db.query(
         MixEntry.id, 
@@ -44,39 +44,40 @@ def Get_mixentry(db: Session, type: str):
             .join(MixEntry.stop)\
     .all()
     flattened_result = []
-    for row in results:
-        recipe = {}
-        for material in materials:
-            recipe[material[0]] = 0
-        product = db.query(PipeProduct).filter(PipeProduct.code == row[11]).first()
-        mat = db.query(Material).filter(Material.id == row[8]).first()
-        if not product:
-            product = db.query(FittingProduct).filter(FittingProduct.code == row[11]).first()
-        self_recipe: List[Recipe] = db.query(Recipe).where(Recipe.mixentries_id == row[0]).all()
-        # if not row[6]:
-        #     row[6] = 0
-        for ins in self_recipe:
-            recipe[ins.rawmaterial_id] = ins.weight * float(row[7]) if type == "total" else ins.weight
-        total_time = (float(row[3]) * float(row[7]) if type == "total" else float(row[3])) if row[3] else row[3]
-        for material in materials:
-            recipe[material[1] + ' ' + material[2]] = recipe.pop(material[0])
-        
-        flattened_result.append({**{
-            "کد محصول": row[11],
-            "نام محصول": row[12],
-            "رنگ": product.color if product else None,
-            "کتگوری": row[6],
-            "گروه محصولات": mat.material if mat else None,
-            "محل فروش": ("صادراتی" if product.export else "داخلی") if product else None,
-            "نام خط تولید": row[10],
-            "نام اپراتور": row[14],
-            "شیفت": shift_map[row[1]],
-            "تاریخ": row[5],
-            "زمان میکس (دقیقه)": total_time,
-            "تعداد میکس": row[7],
-            "میزان توقف (دقیقه)": row[15],
-            "علت توقف": row[4],
-            "توضیح": row[2],
-        }, **recipe})
-        
-    return flattened_result
+    if excel:
+        for row in results:
+            recipe = {}
+            for material in materials:
+                recipe[material[0]] = 0
+            product = db.query(PipeProduct).filter(PipeProduct.code == row[11]).first()
+            mat = db.query(Material).filter(Material.id == row[8]).first()
+            if not product:
+                product = db.query(FittingProduct).filter(FittingProduct.code == row[11]).first()
+            self_recipe: List[Recipe] = db.query(Recipe).where(Recipe.mixentries_id == row[0]).all()
+            # if not row[6]:
+            #     row[6] = 0
+            for ins in self_recipe:
+                recipe[ins.rawmaterial_id] = ins.weight * float(row[7]) if type == "total" else ins.weight
+            total_time = (float(row[3]) * float(row[7]) if type == "total" else float(row[3])) if row[3] else row[3]
+            for material in materials:
+                recipe[material[1] + ' ' + material[2]] = recipe.pop(material[0])
+            
+            flattened_result.append({**{
+                "کد محصول": row[11],
+                "نام محصول": row[12],
+                "رنگ": product.color if product else None,
+                "کتگوری": row[6],
+                "گروه محصولات": mat.material if mat else None,
+                "محل فروش": ("صادراتی" if product.export else "داخلی") if product else None,
+                "نام خط تولید": row[10],
+                "نام اپراتور": row[14],
+                "شیفت": shift_map[row[1]],
+                "تاریخ": row[5],
+                "زمان میکس (دقیقه)": total_time,
+                "تعداد میکس": row[7],
+                "میزان توقف (دقیقه)": row[15],
+                "علت توقف": row[4],
+                "توضیح": row[2],
+            }, **recipe})
+            
+        return flattened_result
