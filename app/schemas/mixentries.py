@@ -4,18 +4,18 @@ from datetime import date as dt
 from datetime import time as tm
 
 class MixEntry(BaseModel):
-    operator_id: int
-    shift: int
-    line_id: int
-    product_id: str
-    description: str
-    recipe_code: int
-    date: str
-    category: str
-    amount: int  
-    stop_id: int  
-    stop_time: int
-    time: int
+    operator_id: int = None
+    shift: int = None
+    line_id: int = None
+    product_id: str = None
+    description: str = None
+    recipe_code: int = None
+    date: str = None
+    category: str = None
+    amount: int   = None
+    stop_id: int = None  
+    stop_time: int = None
+    time: int = None
 
     @field_validator('operator_id', 'shift', 'line_id', 'recipe_code', 'amount', 'stop_id', 'stop_time', 'time')
     @classmethod
