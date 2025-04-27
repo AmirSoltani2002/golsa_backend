@@ -16,6 +16,7 @@ class MixEntry(BaseModel):
     stop_id: int = None  
     stop_time: int = None
     time: int = None
+    mainStat: bool = None
 
     @field_validator('operator_id', 'shift', 'line_id', 'recipe_code', 'amount', 'stop_id', 'stop_time', 'time')
     @classmethod
