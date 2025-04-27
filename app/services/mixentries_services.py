@@ -37,7 +37,8 @@ def Get_mixentry(db: Session, type: str, excel = True):
         AllProduct.name,
         Operator.id,
         Operator.name,
-        MixEntry.stop_time)\
+        MixEntry.stop_time,
+        MixEntry.mainstat)\
             .join(MixEntry.machine)\
             .join(MixEntry.product)\
             .join(MixEntry.operator)\
@@ -75,6 +76,7 @@ def Get_mixentry(db: Session, type: str, excel = True):
                 "تاریخ": row[5],
                 "زمان میکس (دقیقه)": total_time,
                 "تعداد میکس": row[7],
+                "نوع آمار": "اصلی" if row[16] else "تستی",
                 "میزان توقف (دقیقه)": row[15],
                 "علت توقف": row[4],
                 "توضیح": row[2],
