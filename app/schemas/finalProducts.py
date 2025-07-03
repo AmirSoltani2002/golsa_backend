@@ -5,7 +5,7 @@ class FinalProduct(BaseModel):
     line_id: int | None = None
     event: str | None = None
     mold: str | None = None
-    allproduct_id: int | None = None
+    product_id: str | None = None
     type: str | None = None
     color: str | None = None
     cycle_tobe: int | None = None

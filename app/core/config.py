@@ -9,7 +9,7 @@ class Settings:
     #DATABASE_URL: str = "postgresql://postgres.bhieenrmgrupislmtels:Amir-2002-soltani@aws-0-eu-central-1.pooler.supabase.com:6543/postgres"
     #DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/golsar_polymer"
     #DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/golsar_polymer"
-    DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/golsa_polymer"
+    DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/golsar_polymer"
 
 settings = Settings()
 

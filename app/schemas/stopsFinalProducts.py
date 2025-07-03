@@ -9,3 +9,4 @@ class StopsFinalProducts(BaseModel):
     end_date: str | None = None
     end_time: str | None = None
     description: str | None = None
+    operator_id: int | None = None

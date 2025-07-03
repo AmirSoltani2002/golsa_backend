@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 from app.db import Base
 from app.models.operators import Operator
@@ -6,7 +6,9 @@ from app.models.finalProduct import FinalProduct
 
 class FinalProductOperator(Base):
     __tablename__ = 'finalproductoperators'
-
+    __table_args__ = (
+        UniqueConstraint('finalproduct_id', 'operator_id', name='uq_finalproduct_operator'),
+    )
     id = Column(Integer, index=True, autoincrement=True, primary_key = True)
     finalproduct_id = Column(ForeignKey('finalproducts.id', ondelete='SET NULL'))
     cycle_practical = Column(Integer)

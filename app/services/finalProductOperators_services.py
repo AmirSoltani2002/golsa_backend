@@ -12,3 +12,9 @@ def Create_finalprodOperate(db: Session, data: FinalProductOperatorSchema):
     db.commit()
     db.refresh(db_data)
     return db_data
+
+def Find_by_OperatorID_FinalproductID(db: Session, operator_id: int, finalproduct_id: int):
+    return db.query(FinalProductOperator).filter(
+        FinalProductOperator.operator_id == operator_id,
+        FinalProductOperator.finalproduct_id == finalproduct_id
+    ).first()
