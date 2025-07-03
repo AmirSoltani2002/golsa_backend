@@ -1,7 +1,5 @@
 from pydantic import BaseModel, field_validator
-import jdatetime
-from datetime import date as dt
-from datetime import time as tm
+from sqlalchemy.orm import relationship
 
 class MixEntry(BaseModel):
     operator_id: int = None

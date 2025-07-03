@@ -9,3 +9,6 @@ from app.models.recipes import Recipe
 from app.models.mixentries import MixEntry  # MixEntry references Operator
 from app.models.allproducts import AllProduct
 from app.models.stops import Stops
+from app.models.finalProduct import FinalProduct
+from app.models.stopsFinalProducts import StopsFinalProducts
+from app.models.finalProductOperator import FinalProductOperator
