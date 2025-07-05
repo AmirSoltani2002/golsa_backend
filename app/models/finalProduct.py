@@ -11,11 +11,9 @@ class FinalProduct(Base):
 
     id = Column(Integer, index=True, autoincrement=True, primary_key = True)
     line_id = Column(ForeignKey('machines.id', ondelete='SET NULL'))
-    event = Column(String)
     mold = Column(String)
     product_id = Column(ForeignKey('allproducts.code', ondelete='SET NULL'))
     type = Column(String)
-    color = Column(String)
     cycle_tobe = Column(Integer)
     quantity_tobe = Column(Integer)
 

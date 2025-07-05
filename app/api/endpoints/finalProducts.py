@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.api.dependencies import get_db, get_current_user
 from app.models.finalProduct import FinalProduct
 from app.schemas.finalProducts import FinalProduct as FinalProductSchema
-from app.services.finalProducts_services import Create_finalprod, update_finalprod
+from app.services.finalProducts_services import Create_finalprod, update_finalprod, Get_finalProduct
 
 router = APIRouter()
 
@@ -14,3 +14,8 @@ def create_finalprod_endpoint(prod: FinalProductSchema, db: Session = Depends(ge
 @router.put("/api/finalprod/{id}", response_model=FinalProductSchema)
 def update_finalprod_endpoint(id: int, prod: FinalProductSchema, db: Session = Depends(get_db), user = Depends(get_current_user)):
     return update_finalprod(db = db, id = id, data = prod)
+
+@router.get("/api/finalprod/")
+def get_finalprod_endpoint(db: Session = Depends(get_db), user = Depends(get_current_user)):
+    result = Get_finalProduct(db=db)
+    return result
