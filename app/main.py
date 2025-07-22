@@ -11,7 +11,10 @@ from app.models import PipeProduct, FittingProduct, Operator, Machine, Material,
 
 app = FastAPI(title=settings.PROJECT_NAME)
 
-app.mount("/api/static", StaticFiles(directory="images"), name="static")
+try:
+    app.mount("/api/static", StaticFiles(directory="images"), name="static")
+except:
+    pass
 
 app.add_middleware(
     CORSMiddleware,
