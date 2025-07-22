@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from app.db import Base
 from app.models.operators import Operator
 from app.models.finalProduct import FinalProduct
+from app.models.wastes import Waste
 
 class FinalProductOperator(Base):
     __tablename__ = 'finalproductoperators'
@@ -22,6 +23,8 @@ class FinalProductOperator(Base):
     quantity_practical = Column(Integer)
     waste = Column(Integer)
     waste_description = Column(String)
+    waste_id = Column(ForeignKey('wastes.id', ondelete = 'SET NULL'))
 
     operator = relationship("Operator", backref="finalproductoperator")
     finalproduct = relationship("FinalProduct", backref="finalproductoperator")
+    waste_reason = relationship("Waste", backref="finalproductoperator")
