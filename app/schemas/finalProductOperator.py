@@ -14,3 +14,4 @@ class FinalProductOperator(BaseModel):
     quantity_practical: int | None = None
     waste: int | None = None
     waste_description: str | None = None
+    waste_id: int | None = None
