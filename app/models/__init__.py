@@ -13,3 +13,4 @@ from app.models.finalProduct import FinalProduct
 from app.models.stopsFinalProducts import StopsFinalProducts
 from app.models.finalProductOperator import FinalProductOperator
 from app.models.wastes import Waste
+from app.models.molds import Molds

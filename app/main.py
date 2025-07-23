@@ -7,7 +7,7 @@ from app.core.config import settings
 from app.db import Base
 from app.db import engine
 from fastapi.staticfiles import StaticFiles
-from app.models import PipeProduct, FittingProduct, Operator, Machine, Material, RawMaterial, Recipe, MixEntry, AllProduct, Stops, FinalProduct, StopsFinalProducts, FinalProductOperator, wastes
+from app.models import PipeProduct, FittingProduct, Operator, Machine, Material, RawMaterial, Recipe, MixEntry, AllProduct, Stops, FinalProduct, StopsFinalProducts, FinalProductOperator, wastes, Molds
 
 app = FastAPI(title=settings.PROJECT_NAME)
 
